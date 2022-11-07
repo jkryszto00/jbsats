@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Domain\User\Actions\CreateUserAction;
 use App\Domain\User\Factory\UserDataFactory;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -53,6 +52,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::redirectUser());
     }
 }
