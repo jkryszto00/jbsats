@@ -14,7 +14,8 @@ class CreateUserAction
         $user = User::create([
             'name' => $userData->name,
             'email' => $userData->email,
-            'password' => $userData->password
+            'password' => $userData->password,
+            'is_employer' => $userData->isEmployer,
         ]);
 
         if ($user) {
