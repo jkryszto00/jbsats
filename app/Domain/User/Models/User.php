@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_employer' => 'boolean'
     ];
+
+    public function isEmployer(): bool
+    {
+        return $this->is_employer;
+    }
 }

@@ -17,7 +17,17 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/dashboard';
+    public const SITE = '/';
+    public const PANEL = '/panel';
+
+    static function redirectUser(): string
+    {
+        if (auth()->user()->isEmployer()) {
+            return self::PANEL;
+        }
+
+        return self::SITE;
+    }
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
