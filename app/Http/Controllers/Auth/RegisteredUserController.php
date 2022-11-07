@@ -22,7 +22,11 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Register');
+        $isEmployer = request()->get('as') == 'employer';
+
+        return Inertia::render('Auth/Register', [
+            'isEmployer' => $isEmployer
+        ]);
     }
 
     /**
@@ -35,14 +39,14 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request, CreateUserAction $createUserAction)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'is_employer' => 'required|boolean'
         ]);
 
-        $userData = UserDataFactory::fromArray($request->all());
-
+        $userData = UserDataFactory::fromArray($validated);
         $user = $createUserAction($userData);
 
         event(new Registered($user));

@@ -6,11 +6,19 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 
+const prop = defineProps({
+    isEmployer: {
+        type: Boolean,
+        required: true
+    }
+})
+
 const form = useForm({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
+    is_employer: prop.isEmployer,
     terms: false,
 });
 
