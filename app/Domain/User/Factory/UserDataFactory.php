@@ -12,7 +12,8 @@ abstract class UserDataFactory
         return new UserData(
             name: $data['name'],
             email: $data['email'],
-            password: Hash::make($data['password'])
+            password: Hash::make($data['password']),
+            isEmployer: $data['is_employer']
         );
     }
 }
