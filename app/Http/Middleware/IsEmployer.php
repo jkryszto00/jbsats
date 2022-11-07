@@ -17,7 +17,7 @@ class IsEmployer
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->isEmployer()) {
+        if ($request->user() and $request->user()->isEmployer()) {
             return $next($request);
         }
 

@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
 
     static function redirectUser(): string
     {
-        if (auth()->user()->isEmployer()) {
+        if (auth()->user() and auth()->user()->isEmployer()) {
             return self::PANEL;
         }
 
