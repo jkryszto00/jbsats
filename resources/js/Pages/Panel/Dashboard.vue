@@ -1,9 +1,9 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import PanelLayout from "@/Layouts/PanelLayout.vue";
 </script>
 
 <template>
-    <AuthenticatedLayout>
+    <PanelLayout>
         panel dashboard
-    </AuthenticatedLayout>
+    </PanelLayout>
 </template>
