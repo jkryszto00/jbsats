@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
 
 
 Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
-    Route::get('', \App\Http\Controllers\Panel\DashboardController::class);
+    Route::get('', \App\Http\Controllers\Panel\DashboardController::class)->name('panel.dashboard');
 
     Route::group(['prefix' => 'company'], function () {
         Route::get('', \App\Http\Controllers\Panel\Company\ShowCompanyController::class)->name('panel.company.show');
