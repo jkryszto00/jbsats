@@ -26,6 +26,15 @@ Route::get('/dashboard', function () {
 
 Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
     Route::get('', \App\Http\Controllers\Panel\DashboardController::class);
+
+    Route::group(['prefix' => 'company'], function () {
+        Route::get('', \App\Http\Controllers\Panel\Company\ShowCompanyController::class)->name('panel.company.show');
+        Route::get('create', \App\Http\Controllers\Panel\Company\CreateCompanyController::class)->name('panel.company.create');
+        Route::post('create', \App\Http\Controllers\Panel\Company\StoreCompanyController::class)->name('panel.company.store');
+
+        Route::get('edit', \App\Http\Controllers\Panel\Company\EditCompanyController::class)->name('panel.company.edit');
+        Route::patch('edit', \App\Http\Controllers\Panel\Company\UpdateCompanyController::class)->name('panel.company.update');
+    });
 });
 
 
