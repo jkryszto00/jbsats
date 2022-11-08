@@ -15,7 +15,7 @@ class CreateUserAction
             'name' => $userData->name,
             'email' => $userData->email,
             'password' => $userData->password,
-            'is_employer' => $userData->isEmployer,
+            'is_employer' => $userData->is_employer,
         ]);
 
         if ($user) {
