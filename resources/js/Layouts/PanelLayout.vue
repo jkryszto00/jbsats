@@ -14,7 +14,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                     <Link>Dashboard</Link>
                     <Link>Jobs</Link>
                     <Link>Applications</Link>
-                    <Link>Company</Link>
+                    <Link :href="route('panel.company.show')">Company</Link>
                 </div>
             </div>
             <div>
