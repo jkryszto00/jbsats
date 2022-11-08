@@ -7,11 +7,11 @@ import { Link } from '@inertiajs/inertia-vue3';
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="inline-flex items-center gap-8">
                 <div>
-                    <Link :href="route('dashboard')">jbsats</Link>
+                    <Link :href="route('panel.dashboard')">jbsats</Link>
                 </div>
 
                 <div class="inline-flex items-center gap-4">
-                    <Link>Dashboard</Link>
+                    <Link :href="route('panel.dashboard')">Dashboard</Link>
                     <Link>Jobs</Link>
                     <Link>Applications</Link>
                     <Link :href="route('panel.company.show')">Company</Link>
