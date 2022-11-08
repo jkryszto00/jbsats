@@ -1,13 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace App\Domain\User\Data;
 
-class UserData
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
+
+class UserData extends Data
 {
     public function __construct(
+        public readonly int|Optional $id,
         public readonly string $name,
         public readonly string $email,
-        public readonly string $password,
-        public readonly bool $isEmployer
-    ) {}
+        public readonly string|Optional $password,
+        public readonly bool|Optional $is_employer
+    ){}
 }
