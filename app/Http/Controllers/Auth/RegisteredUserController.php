@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Domain\User\Actions\CreateUserAction;
-use App\Domain\User\Factory\UserDataFactory;
+use App\Domain\User\Data\UserData;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -45,8 +45,7 @@ class RegisteredUserController extends Controller
             'is_employer' => 'required|boolean'
         ]);
 
-        $userData = UserDataFactory::fromArray($validated);
-        $user = $createUserAction($userData);
+        $user = $createUserAction(UserData::from($validated));
 
         event(new Registered($user));
 
