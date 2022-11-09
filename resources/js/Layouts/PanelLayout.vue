@@ -12,7 +12,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 
                 <div class="inline-flex items-center gap-4">
                     <Link :href="route('panel.dashboard')">Dashboard</Link>
-                    <Link>Jobs</Link>
+                    <Link :href="route('panel.posting.index')">Jobs</Link>
                     <Link>Applications</Link>
                     <Link :href="route('panel.company.show')">Company</Link>
                 </div>
