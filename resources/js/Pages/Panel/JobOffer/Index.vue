@@ -1,9 +1,28 @@
 <script setup>
 import PanelLayout from "@/Layouts/PanelLayout.vue";
 import { Link } from '@inertiajs/inertia-vue3';
-import {defineProps} from "vue";
+import {defineProps, ref, watch} from "vue";
+import {Inertia} from "@inertiajs/inertia";
+import {debounce} from "lodash";
 
-defineProps(['jobOffers'])
+const props = defineProps(['statuses', 'filters', 'jobOffers'])
+
+const filters = ref({
+    title: props.filters.title,
+    status: props.filters.status
+})
+
+watch(filters, debounce(() => {
+    Inertia.get(route('panel.posting.index'), {
+        title: filters.value.title,
+        status: filters.value.status
+    }, {
+        preserveState: true,
+        preserveScroll: true
+    })
+}, 250), {
+    deep: true
+})
 </script>
 
 <template>
@@ -14,8 +33,13 @@ defineProps(['jobOffers'])
         </div>
         <div class="mt-4 p-4 bg-neutral-100">
             <div class="mb-4">
-                <input type="search" placeholder="search">
-                <input type="text" placeholder="status">
+                <input type="search" v-model="filters.title" placeholder="search">
+                <select v-model="filters.status" class="capitalize">
+                    <option value="all">All</option>
+                    <template v-for="status in statuses">
+                        <option :value="status">{{ status }}</option>
+                    </template>
+                </select>
             </div>
             <table class="w-full divide-y divide-neutral-200">
                 <thead>
@@ -32,7 +56,7 @@ defineProps(['jobOffers'])
                         <tr>
                             <td class="py-2 text-left">{{ jobOffer.title }}</td>
                             <td class="text-left">
-                                <template v-for="(category, index) in jobOffer.categories">
+                                <template v-for="category in jobOffer.categories">
                                     <span class="px-2 py-1 mr-2 bg-indigo-200 text-sm">{{ category.name }}</span>
                                 </template>
                             </td>

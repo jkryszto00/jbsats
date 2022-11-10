@@ -33,6 +33,12 @@ class JobOffer extends Model
     {
         $query->when($filters['title'] ?? null, function ($query, $title) {
             $query->where('title', 'like', '%'.$title.'%');
+        })->when($filters['status'] ?? null, function ($query, $status) {
+            match($status) {
+                JobOfferStatus::PUBLISHED->text() => $this->scopePublished($query),
+                JobOfferStatus::DRAFTS->text() => $this->scopeDraft($query),
+                default => null
+            };
         });
     }
 
