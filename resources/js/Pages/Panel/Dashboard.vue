@@ -1,6 +1,8 @@
 <script setup>
 import PanelLayout from "@/Layouts/PanelLayout.vue";
 import { Link } from '@inertiajs/inertia-vue3';
+
+defineProps(['counts'])
 </script>
 
 <template>
@@ -13,15 +15,15 @@ import { Link } from '@inertiajs/inertia-vue3';
                 </div>
                 <div class="pt-4 flex justify-between gap-4">
                     <div class="flex-1 p-10 border border-neutral-200 bg-green-100 text-center">
-                        <span class="block text-lg">0</span>
+                        <span class="block text-lg">{{ counts.published }}</span>
                         <Link :href="route('panel.posting.index', { status: 'published' })" class="text-green-900 hover:underline">Published</Link>
                     </div>
                     <div class="flex-1 p-10 border border-neutral-200 bg-red-100 text-center">
-                        <span class="block text-lg">0</span>
+                        <span class="block text-lg">{{ counts.expired }}</span>
                         <Link :href="route('panel.posting.index', { status: 'expired' })" class="text-red-900 hover:underline">Expired</Link>
                     </div>
                     <div class="flex-1 p-10 border border-neutral-200 bg-gray-200 text-center">
-                        <span class="block text-lg">0</span>
+                        <span class="block text-lg">{{ counts.draft }}</span>
                         <Link :href="route('panel.posting.index', { status: 'drafts' })" class="text-gray-900 hover:underline">Drafts</Link>
                     </div>
                 </div>
