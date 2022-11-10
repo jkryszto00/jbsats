@@ -2,6 +2,7 @@
 
 namespace App\Domain\JobOffer\Models;
 
+use App\Domain\Company\Models\Company;
 use App\Domain\JobOffer\Enums\JobOfferStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,11 @@ class JobOffer extends Model
         'status' => 'integer',
         'expired_at' => 'datetime'
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 
     public function categories()
     {

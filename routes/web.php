@@ -34,6 +34,7 @@ Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
         Route::delete('{jobOffer}', \App\Http\Controllers\Panel\JobOffer\DeleteJobOfferController::class)->name('panel.posting.delete');
 
         Route::patch('{jobOffer}/publish', \App\Http\Controllers\Panel\JobOffer\PublishJobOfferController::class)->name('panel.posting.publish');
+        Route::get('{jobOffer}/preview', \App\Http\Controllers\Panel\JobOffer\PreviewJobOfferController::class)->name('panel.posting.preview');
     });
 
     Route::group(['prefix' => 'company'], function () {

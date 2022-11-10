@@ -73,7 +73,7 @@ watch(filters, debounce(() => {
                                                 <Link class="flex">Statistics</Link>
                                             </MenuItem>
                                             <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
-                                                <Link class="flex">Preview</Link>
+                                                <Link :href="route('panel.posting.preview', { jobOffer: jobOffer })" class="flex">Preview</Link>
                                             </MenuItem>
                                             <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
                                                 <Link class="flex">Edit</Link>
