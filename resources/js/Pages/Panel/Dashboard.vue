@@ -9,7 +9,7 @@ import { Link } from '@inertiajs/inertia-vue3';
             <div class="w-2/3 p-4 bg-neutral-100">
                 <div class="pb-4 border-b border-neutral-200 flex items-center justify-between">
                     <span class="font-bold text-xl">Job offers</span>
-                    <Link class="bg-neutral-900 text-neutral-50 px-4 py-2">Go to offers</Link>
+                    <Link :href="route('panel.posting.index')" class="bg-neutral-900 text-neutral-50 px-4 py-2">Go to offers</Link>
                 </div>
                 <div class="pt-4 flex justify-between gap-4">
                     <div class="flex-1 p-10 border border-neutral-200 bg-green-100 text-center">
