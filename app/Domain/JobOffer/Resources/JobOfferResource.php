@@ -19,6 +19,7 @@ class JobOfferResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'categories' => CategoryResource::collection($this->whenLoaded('categories')),
             'description' => $this->description,
             'level' => JobOfferLevel::from($this->level)->text(),
             'contract' => $this->contract,

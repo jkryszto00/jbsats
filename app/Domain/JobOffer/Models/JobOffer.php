@@ -11,7 +11,7 @@ class JobOffer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id', 'title', 'description', 'level', 'contract', 'salary', 'expired_at'];
+    protected $fillable = ['company_id', 'title', 'description', 'level', 'contract', 'salary', 'status', 'expired_at'];
 
     protected $attributes = [
         'status' => JobOfferStatus::DRAFTS
@@ -23,6 +23,11 @@ class JobOffer extends Model
         'status' => 'integer',
         'expired_at' => 'datetime'
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'job_offer_category');
+    }
 
     public function scopeFilter(Builder $query, array $filters)
     {

@@ -21,7 +21,7 @@ defineProps(['jobOffers'])
                 <thead>
                     <tr>
                         <th class="py-2 text-left">Title</th>
-                        <th class="text-center">Category</th>
+                        <th class="text-left">Category</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Expired at</th>
                         <th></th>
@@ -31,11 +31,15 @@ defineProps(['jobOffers'])
                     <template v-for="jobOffer in jobOffers">
                         <tr>
                             <td class="py-2 text-left">{{ jobOffer.title }}</td>
-                            <td class="text-center"></td>
+                            <td class="text-left">
+                                <template v-for="(category, index) in jobOffer.categories">
+                                    <span class="px-2 py-1 mr-2 bg-indigo-200 text-sm">{{ category.name }}</span>
+                                </template>
+                            </td>
                             <td class="text-center">{{ jobOffer.status }}</td>
                             <td class="text-center">{{ (jobOffer.expired_at) ? jobOffer.expired_at : '-' }}</td>
                             <td class="text-right">
-                                <button type="button" class="bg-blue-700 text-blue-50 px-2 py-1 text-sm mr-2">Publish</button>
+                                <Link v-if="jobOffer.status !== 'published'" :href="route('panel.posting.publish', { jobOffer: jobOffer })" method="patch" as="button" class="bg-blue-700 text-blue-50 px-2 py-1 text-sm mr-2">Publish</Link>
                                 <button type="button" class="bg-neutral-900 text-neutral-50 px-2 py-1 text-sm">More</button>
                             </td>
                         </tr>

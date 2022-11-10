@@ -11,7 +11,7 @@ class IndexJobOfferController extends Controller
     public function __invoke()
     {
         return inertia('Panel/JobOffer/Index', [
-            'jobOffers' => JobOfferResource::collection(JobOffer::all())
+            'jobOffers' => JobOfferResource::collection(JobOffer::with('categories')->get())
         ]);
     }
 }

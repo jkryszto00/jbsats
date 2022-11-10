@@ -32,6 +32,8 @@ class CreateJobOfferRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'required|string',
+            'category' => 'required|array|min:1',
+            'category.*' => 'required|exists:categories,id',
             'level' => ['required', new Enum(JobOfferLevel::class)],
             'contract' => 'required|array|min:2|max:2',
             'contract.currency' => ['required', new Enum(ContractCurrency::class)],

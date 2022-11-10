@@ -3,11 +3,12 @@ import PanelLayout from "@/Layouts/PanelLayout.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 import {ref} from "vue";
 
-defineProps(['levels', 'currencies', 'types', 'times', 'pers'])
+defineProps(['categories', 'levels', 'currencies', 'types', 'times', 'pers'])
 
 const form = useForm({
     title: '',
     description: '',
+    category: [],
     level: '',
     contract: {
         currency: '',
@@ -52,6 +53,11 @@ function addNewSalary() {
         <form @submit.prevent="submit">
             <input type="text" v-model="form.title" placeholder="title">
             <input type="text" v-model="form.description" placeholder="description">
+            <select v-model="form.category" multiple>
+                <template v-for="category in categories">
+                    <option :value="category.id">{{ category.name }}</option>
+                </template>
+            </select>
             <select v-model="form.level" class="capitalize">
                 <template v-for="level in levels">
                     <option :value="level.value">{{ level.name }}</option>

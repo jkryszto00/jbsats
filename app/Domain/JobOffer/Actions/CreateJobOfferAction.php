@@ -10,6 +10,9 @@ class CreateJobOfferAction
 {
     public function __invoke(Company $company, JobOfferData $jobOfferData): JobOffer
     {
-        return JobOffer::create(array_merge(['company_id' => $company->id], $jobOfferData->toArray()));
+        $jobOffer = JobOffer::create(array_merge(['company_id' => $company->id], $jobOfferData->toArray()));
+        $jobOffer->categories()->attach(array_map(fn ($category) => $category['id'], $jobOfferData->category->toArray()));
+
+        return $jobOffer;
     }
 }
