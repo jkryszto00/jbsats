@@ -1,0 +1,77 @@
+<script setup>
+import PanelLayout from "@/Layouts/PanelLayout.vue";
+import {computed} from "vue";
+import {upperCase} from "lodash/string";
+import {isNull} from "lodash/lang";
+import { Link } from '@inertiajs/inertia-vue3';
+
+const props = defineProps(['jobOffer'])
+
+const salaries = computed(() => {
+    return props.jobOffer.salary.map((salary) => {
+        return {
+            type: salary.type,
+            rate: ((salary.exact && !isNull(salary.exact)) ? salary.exact : `${salary.from} - ${salary.to}`) + ` ${upperCase(props.jobOffer.contract.currency)}`,
+            per: salary.per
+        }
+    })
+})
+</script>
+
+<template>
+    <PanelLayout>
+        <div class="mb-4 p-4 bg-neutral-100">
+            <Link :href="route('panel.posting.index')" class="bg-neutral-900 text-neutral-50 px-4 py-2">Back to offers</Link>
+        </div>
+        <div class="flex items-start gap-4 justify-between">
+            <div class="w-2/3 p-4 bg-neutral-100">
+                <div class="border-b border-neutral-200 pb-4">
+                    <div class="text-2xl font-bold">{{ jobOffer.title }}</div>
+                    <div>{{ jobOffer.company.name }}</div>
+                </div>
+                <div class="flex justify-between gap-4 py-2 border-b border-neutral-200 pb-2">
+                    <div class="flex-1">
+                        <span>Category: </span>
+                        <template v-for="category in jobOffer.categories">
+                            <span class="font-bold mr-2">{{ category.name }}</span>
+                        </template>
+                    </div>
+                    <div class="flex-1 flex items-center gap-2">
+                        <span class="capitalize">{{ jobOffer.level.name }}</span>
+                        <div class="flex items-center gap-1">
+                            <template v-for="n in jobOffer.level.value">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                </svg>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                <div v-html="jobOffer.description" class="py-2"></div>
+            </div>
+            <div class="w-1/3 p-4 bg-neutral-100 flex flex-col gap-y-4">
+                <div class="divide-y divide-neutral-300">
+                    <template v-for="salary in salaries">
+                        <div class="py-2">
+                            <span class="uppercase">{{ salary.type }}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-xl">{{ salary.rate }}</span>
+                                <span>/ {{ salary.per }}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <button type="button" class="bg-neutral-900 text-neutral-50 py-6 text-lg">Apply</button>
+                <div class="py-2">
+                    <div class="inline-flex gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
+                            <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd" />
+                        </svg>
+                        <span>{{ jobOffer.expired_at }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </PanelLayout>
+</template>

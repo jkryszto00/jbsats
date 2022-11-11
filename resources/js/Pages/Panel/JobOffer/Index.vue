@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/inertia-vue3';
 import {defineProps, ref, watch} from "vue";
 import {Inertia} from "@inertiajs/inertia";
 import {debounce} from "lodash";
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 const props = defineProps(['statuses', 'filters', 'jobOffers'])
 
@@ -63,8 +64,26 @@ watch(filters, debounce(() => {
                             <td class="text-center">{{ jobOffer.status }}</td>
                             <td class="text-center">{{ (jobOffer.expired_at) ? jobOffer.expired_at : '-' }}</td>
                             <td class="text-right">
-                                <Link v-if="jobOffer.status !== 'published'" :href="route('panel.posting.publish', { jobOffer: jobOffer })" method="patch" as="button" class="bg-blue-700 text-blue-50 px-2 py-1 text-sm mr-2">Publish</Link>
-                                <button type="button" class="bg-neutral-900 text-neutral-50 px-2 py-1 text-sm">More</button>
+                                <div class="flex justify-end">
+                                    <Link v-if="jobOffer.status !== 'published'" :href="route('panel.posting.publish', { jobOffer: jobOffer })" method="patch" as="button" class="bg-blue-700 text-blue-50 px-2 py-1 text-sm mr-2">Publish</Link>
+                                    <Menu as="div" class="relative">
+                                        <MenuButton class="bg-neutral-900 text-neutral-50 px-2 py-1 text-sm">More</MenuButton>
+                                        <MenuItems class="absolute z-10 right-0 mt-1 w-32 origin-top-right bg-white border border-neutral-300 shadow-md">
+                                            <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
+                                                <Link class="flex">Statistics</Link>
+                                            </MenuItem>
+                                            <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
+                                                <Link :href="route('panel.posting.preview', { jobOffer: jobOffer })" class="flex">Preview</Link>
+                                            </MenuItem>
+                                            <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
+                                                <Link :href="route('panel.posting.edit', { jobOffer: jobOffer })" class="flex">Edit</Link>
+                                            </MenuItem>
+                                            <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
+                                                <Link :href="route('panel.posting.delete', { jobOffer: jobOffer })" as="button" method="delete" class="w-full flex">Delete</Link>
+                                            </MenuItem>
+                                        </MenuItems>
+                                    </Menu>
+                                </div>
                             </td>
                         </tr>
                     </template>
