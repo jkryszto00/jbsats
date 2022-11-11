@@ -76,7 +76,7 @@ watch(filters, debounce(() => {
                                                 <Link :href="route('panel.posting.preview', { jobOffer: jobOffer })" class="flex">Preview</Link>
                                             </MenuItem>
                                             <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
-                                                <Link class="flex">Edit</Link>
+                                                <Link :href="route('panel.posting.edit', { jobOffer: jobOffer })" class="flex">Edit</Link>
                                             </MenuItem>
                                             <MenuItem v-slot="{ active }" class="px-2 py-0.5 hover:bg-neutral-100">
                                                 <Link :href="route('panel.posting.delete', { jobOffer: jobOffer })" as="button" method="delete" class="w-full flex">Delete</Link>

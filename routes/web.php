@@ -31,6 +31,10 @@ Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
         Route::get('', \App\Http\Controllers\Panel\JobOffer\IndexJobOfferController::class)->name('panel.posting.index');
         Route::get('new', \App\Http\Controllers\Panel\JobOffer\CreateJobOfferController::class)->name('panel.posting.create');
         Route::post('new', \App\Http\Controllers\Panel\JobOffer\StoreJobOfferController::class)->name('panel.posting.store');
+
+        Route::get('{jobOffer}/edit', \App\Http\Controllers\Panel\JobOffer\EditJobOfferController::class)->name('panel.posting.edit');
+        Route::patch('{jobOffer}/edit', \App\Http\Controllers\Panel\JobOffer\UpdateJobOfferController::class)->name('panel.posting.update');
+
         Route::delete('{jobOffer}', \App\Http\Controllers\Panel\JobOffer\DeleteJobOfferController::class)->name('panel.posting.delete');
 
         Route::patch('{jobOffer}/publish', \App\Http\Controllers\Panel\JobOffer\PublishJobOfferController::class)->name('panel.posting.publish');
