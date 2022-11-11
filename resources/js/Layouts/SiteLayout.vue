@@ -11,7 +11,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                 </div>
 
                 <div class="inline-flex items-center gap-4">
-                    <Link>Jobs</Link>
+                    <Link :href="route('site.jobs.index')">Jobs</Link>
                     <Link>Companies</Link>
                 </div>
             </div>
