@@ -1,4 +1,5 @@
 <script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { Link } from '@inertiajs/inertia-vue3';
 </script>
 
@@ -17,9 +18,16 @@ import { Link } from '@inertiajs/inertia-vue3';
                     <Link :href="route('panel.company.show')">Company</Link>
                 </div>
             </div>
-            <div>
-                {{ $page.props.auth.user.name }}
-            </div>
+            <Menu as="div" class="relative">
+                <MenuButton>
+                    {{ $page.props.auth.user.name }}
+                </MenuButton>
+                <MenuItems class="absolute z-10 right-0 mt-1 w-32 origin-top-right bg-neutral-600 border border-neutral-700 shadow-md">
+                    <MenuItem v-slot="{ active }">
+                        <Link :href="route('logout')" method="post" as="button" class="w-full flex px-2 py-0.5 hover:bg-neutral-800">Logout</Link>
+                    </MenuItem>
+                </MenuItems>
+            </Menu>
         </div>
     </nav>
 
