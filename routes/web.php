@@ -15,14 +15,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return \inertia('Index');
-});
+Route::get('', \App\Http\Controllers\Site\IndexController::class)->name('site.index');
+Route::get('jobs', \App\Http\Controllers\Site\JobOffer\IndexJobOfferController::class)->name('site.jobs.index');
+Route::get('companies', \App\Http\Controllers\Site\Company\IndexCompanyController::class)->name('site.companies.index');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('jobs/{jobOffer}', \App\Http\Controllers\Site\JobOffer\ShowJobOfferController::class)->name('site.jobs.show');
+Route::get('companies/{company}', \App\Http\Controllers\Site\Company\ShowCompanyController::class)->name('site.companies.show');
 
 Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
     Route::get('', \App\Http\Controllers\Panel\DashboardController::class)->name('panel.dashboard');

@@ -3,6 +3,7 @@
 namespace App\Domain\Company\Resources;
 
 use App\Domain\Company\Enums\CompanyStatus;
+use App\Domain\JobOffer\Resources\JobOfferResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyResource extends JsonResource
@@ -16,6 +17,7 @@ class CompanyResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'founded' => $this->founded,
@@ -24,7 +26,9 @@ class CompanyResource extends JsonResource
             'location' => $this->when($request->route()->getName() != 'panel.company.edit', $this->location),
             'city' => $this->when($request->route()->getName() == 'panel.company.edit', $this->city),
             'country' => $this->when($request->route()->getName() == 'panel.company.edit', $this->country),
-            'status' => CompanyStatus::from($this->status)->text()
+            'status' => CompanyStatus::from($this->status)->text(),
+            'job_offers' => JobOfferResource::collection($this->whenLoaded('jobOffers', $this->jobOffers)),
+            'jobOfferCount' => $this->when($this->job_offers_count, $this->job_offers_count)
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Domain\Company\Models;
 
 use App\Domain\Company\Enums\CompanyStatus;
+use App\Domain\JobOffer\Models\JobOffer;
 use App\Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,5 +35,10 @@ class Company extends Model
     public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function jobOffers()
+    {
+        return $this->hasMany(JobOffer::class);
     }
 }
