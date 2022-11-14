@@ -1,6 +1,6 @@
 <script setup>
 import SiteLayout from "@/Layouts/SiteLayout.vue";
-import { Link } from '@inertiajs/inertia-vue3';
+import {Link, useForm} from '@inertiajs/inertia-vue3';
 import {computed} from "vue";
 import {isNull} from "lodash/lang";
 import {upperCase} from "lodash/string";
@@ -29,6 +29,15 @@ const isOpen = ref(false)
 function setIsOpen(value) {
     isOpen.value = value
 }
+
+const form = useForm({
+    name: '',
+    email: '',
+    about: '',
+    cv: ''
+})
+
+const submit = () => form.post(route('site.jobs.apply', { jobOffer: props.jobOffer }))
 </script>
 <template>
     <SiteLayout>
@@ -82,18 +91,18 @@ function setIsOpen(value) {
                                 </button>
                             </div>
                             <div class="flex justify-center">
-                                <div class="w-1/3 flex flex-col gap-y-4">
-                                    <DialogTitle class="text-center text-2xl font-bold">Apply for the job</DialogTitle>
-                                    <DialogDescription class="p-2 border border-neutral-300">
+                                <div class="w-1/3 flex flex-col">
+                                    <DialogTitle class="mb-4 text-center text-2xl font-bold">Apply for the job</DialogTitle>
+                                    <DialogDescription class="mb-8 p-2 border border-neutral-300">
                                         {{ jobOffer.title }}
                                         {{ jobOffer.salary[0] }}
                                     </DialogDescription>
 
-                                    <form class="flex flex-col gap-y-4">
-                                        <input type="text" placeholder="name and surname">
-                                        <input type="text" placeholder="email">
-                                        <textarea cols="30" rows="5" placeholder="about you and links"></textarea>
-                                        <input type="file">
+                                    <form @submit.prevent="submit" class="flex flex-col gap-y-4">
+                                        <input type="text" v-model="form.name" placeholder="name and surname">
+                                        <input type="text" v-model="form.email" placeholder="email">
+                                        <textarea cols="30" rows="5" v-model="form.about" placeholder="about you and links"></textarea>
+                                        <input type="file" @change="form.cv = $event.target.files[0]">
                                         <button type="submit" class="py-4 text-white bg-blue-600 hover:bg-blue-700">Apply</button>
                                     </form>
                                 </div>

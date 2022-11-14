@@ -22,6 +22,8 @@ Route::get('companies', \App\Http\Controllers\Site\Company\IndexCompanyControlle
 Route::get('jobs/{jobOffer}', \App\Http\Controllers\Site\JobOffer\ShowJobOfferController::class)->name('site.jobs.show');
 Route::get('companies/{company}', \App\Http\Controllers\Site\Company\ShowCompanyController::class)->name('site.companies.show');
 
+Route::post('jobs/{jobOffer}/apply', \App\Http\Controllers\Site\JobOffer\ApplyJobOfferController::class)->name('site.jobs.apply');
+
 Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
     Route::get('', \App\Http\Controllers\Panel\DashboardController::class)->name('panel.dashboard');
 
