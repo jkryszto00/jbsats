@@ -11,12 +11,13 @@ class IndexJobOfferController
 {
     public function __invoke()
     {
-        $jobOffers = JobOfferResource::collection(JobOffer::with('company', 'categories')->get());
+        $jobOffers = JobOffer::with('company', 'categories')->get();
+        $jobOffersCount = $jobOffers->count();
 
         return inertia('Site/JobOffer/Index', [
             'categories' => CategoryResource::collection(Category::all()),
-            'jobOffers' => $jobOffers,
-            'jobOffersCount' => $jobOffers->count()
+            'jobOffers' => JobOfferResource::collection($jobOffers),
+            'jobOffersCount' => $jobOffersCount
         ]);
     }
 }
