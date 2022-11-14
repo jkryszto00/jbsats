@@ -25,7 +25,7 @@ defineProps(['jobOffers'])
                 <template v-for="jobOffer in jobOffers">
                     <div class="px-4 py-2 flex justify-between items-center hover:bg-neutral-200">
                         <div>
-                            <div class="text-xl">{{ jobOffer.title }}</div>
+                            <Link :href="route('site.jobs.show', { jobOffer: jobOffer })" class="text-xl">{{ jobOffer.title }}</Link>
                             <div>{{ jobOffer.company.name }}</div>
                         </div>
                         <div>

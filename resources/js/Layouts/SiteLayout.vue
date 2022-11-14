@@ -17,7 +17,7 @@ const isLogged = computed(() => !isNull(usePage().props.value.auth.user))
 
                 <div class="inline-flex items-center gap-4">
                     <Link :href="route('site.jobs.index')">Jobs</Link>
-                    <Link>Companies</Link>
+                    <Link :href="route('site.companies.index')">Companies</Link>
                 </div>
             </div>
             <Menu v-if="isLogged" as="div" class="relative">
