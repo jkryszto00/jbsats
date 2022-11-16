@@ -41,6 +41,14 @@ Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
         Route::get('{jobOffer}/preview', \App\Http\Controllers\Panel\JobOffer\PreviewJobOfferController::class)->name('panel.posting.preview');
     });
 
+    Route::group(['prefix' => 'candidates'], function () {
+        Route::get('', \App\Http\Controllers\Panel\Apply\IndexApplyController::class)->name('panel.apply.index');
+        Route::get('{jobOffer}', \App\Http\Controllers\Panel\Apply\ShowApplyController::class)->name('panel.apply.show');
+
+        Route::patch('{apply}/accept', \App\Http\Controllers\Panel\Apply\AcceptApplyController::class)->name('panel.apply.accept');
+        Route::patch('{apply}/reject', \App\Http\Controllers\Panel\Apply\RejectApplyController::class)->name('panel.apply.reject');
+    });
+
     Route::group(['prefix' => 'company'], function () {
         Route::get('', \App\Http\Controllers\Panel\Company\ShowCompanyController::class)->name('panel.company.show');
         Route::get('create', \App\Http\Controllers\Panel\Company\CreateCompanyController::class)->name('panel.company.create');

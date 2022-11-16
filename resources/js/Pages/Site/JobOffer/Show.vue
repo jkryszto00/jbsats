@@ -97,7 +97,6 @@ const submit = () => form.post(route('site.jobs.apply', { jobOffer: props.jobOff
                                         {{ jobOffer.title }}
                                         {{ jobOffer.salary[0] }}
                                     </DialogDescription>
-
                                     <form @submit.prevent="submit" class="flex flex-col gap-y-4">
                                         <input type="text" v-model="form.name" placeholder="name and surname">
                                         <input type="text" v-model="form.email" placeholder="email">
