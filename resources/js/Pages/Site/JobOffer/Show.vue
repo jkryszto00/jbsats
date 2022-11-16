@@ -1,9 +1,16 @@
 <script setup>
 import SiteLayout from "@/Layouts/SiteLayout.vue";
-import { Link } from '@inertiajs/inertia-vue3';
+import {Link, useForm} from '@inertiajs/inertia-vue3';
 import {computed} from "vue";
 import {isNull} from "lodash/lang";
 import {upperCase} from "lodash/string";
+import { ref } from 'vue'
+import {
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+    DialogDescription,
+} from '@headlessui/vue'
 
 const props = defineProps(['jobOffer'])
 
@@ -16,6 +23,21 @@ const salaries = computed(() => {
         }
     })
 })
+
+const isOpen = ref(false)
+
+function setIsOpen(value) {
+    isOpen.value = value
+}
+
+const form = useForm({
+    name: '',
+    email: '',
+    about: '',
+    cv: ''
+})
+
+const submit = () => form.post(route('site.jobs.apply', { jobOffer: props.jobOffer }))
 </script>
 <template>
     <SiteLayout>
@@ -57,7 +79,36 @@ const salaries = computed(() => {
                         </div>
                     </template>
                 </div>
-                <button type="button" class="bg-neutral-900 text-neutral-50 py-6 text-lg">Apply</button>
+                <button type="button" class="bg-neutral-900 text-neutral-50 py-6 text-lg" @click="setIsOpen(true)">Apply</button>
+                <Dialog :open="isOpen" @close="setIsOpen" class="relative z-50">
+                    <div class="fixed inset-0 flex items-center justify-center">
+                        <DialogPanel class="w-full min-h-screen bg-white">
+                            <div class="p-4 flex justify-end">
+                                <button type="button" @click="setIsOpen(false)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="flex justify-center">
+                                <div class="w-1/3 flex flex-col">
+                                    <DialogTitle class="mb-4 text-center text-2xl font-bold">Apply for the job</DialogTitle>
+                                    <DialogDescription class="mb-8 p-2 border border-neutral-300">
+                                        {{ jobOffer.title }}
+                                        {{ jobOffer.salary[0] }}
+                                    </DialogDescription>
+                                    <form @submit.prevent="submit" class="flex flex-col gap-y-4">
+                                        <input type="text" v-model="form.name" placeholder="name and surname">
+                                        <input type="text" v-model="form.email" placeholder="email">
+                                        <textarea cols="30" rows="5" v-model="form.about" placeholder="about you and links"></textarea>
+                                        <input type="file" @change="form.cv = $event.target.files[0]">
+                                        <button type="submit" class="py-4 text-white bg-blue-600 hover:bg-blue-700">Apply</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </DialogPanel>
+                    </div>
+                </Dialog>
                 <div class="py-2">
                     <div class="inline-flex gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">

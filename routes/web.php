@@ -22,6 +22,8 @@ Route::get('companies', \App\Http\Controllers\Site\Company\IndexCompanyControlle
 Route::get('jobs/{jobOffer}', \App\Http\Controllers\Site\JobOffer\ShowJobOfferController::class)->name('site.jobs.show');
 Route::get('companies/{company}', \App\Http\Controllers\Site\Company\ShowCompanyController::class)->name('site.companies.show');
 
+Route::post('jobs/{jobOffer}/apply', \App\Http\Controllers\Site\JobOffer\ApplyJobOfferController::class)->name('site.jobs.apply');
+
 Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
     Route::get('', \App\Http\Controllers\Panel\DashboardController::class)->name('panel.dashboard');
 
@@ -37,6 +39,14 @@ Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
 
         Route::patch('{jobOffer}/publish', \App\Http\Controllers\Panel\JobOffer\PublishJobOfferController::class)->name('panel.posting.publish');
         Route::get('{jobOffer}/preview', \App\Http\Controllers\Panel\JobOffer\PreviewJobOfferController::class)->name('panel.posting.preview');
+    });
+
+    Route::group(['prefix' => 'candidates'], function () {
+        Route::get('', \App\Http\Controllers\Panel\Apply\IndexApplyController::class)->name('panel.apply.index');
+        Route::get('{jobOffer}', \App\Http\Controllers\Panel\Apply\ShowApplyController::class)->name('panel.apply.show');
+
+        Route::patch('{apply}/accept', \App\Http\Controllers\Panel\Apply\AcceptApplyController::class)->name('panel.apply.accept');
+        Route::patch('{apply}/reject', \App\Http\Controllers\Panel\Apply\RejectApplyController::class)->name('panel.apply.reject');
     });
 
     Route::group(['prefix' => 'company'], function () {
