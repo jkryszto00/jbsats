@@ -21,12 +21,12 @@ class JobOfferData extends Data
         public readonly string $title,
         public readonly string $description,
         #[DataCollectionOf(CategoryData::class)]
-        public readonly DataCollection $category,
+        public readonly DataCollection|Optional $category,
         public readonly JobOfferLevel $level,
         public readonly ContractData $contract,
         #[DataCollectionOf(SalaryData::class)]
-        public readonly DataCollection $salary,
+        public readonly DataCollection|Optional $salary,
         public readonly JobOfferStatus|Optional $status,
-        public readonly DateTimeImmutable|Optional|null $expired_at
+        public readonly \DateTime|DateTimeImmutable|Optional|null $expired_at
     ){}
 }
