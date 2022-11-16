@@ -2,6 +2,7 @@
 
 namespace App\Domain\JobOffer\Models;
 
+use App\Domain\Apply\Models\Apply;
 use App\Domain\Company\Models\Company;
 use App\Domain\JobOffer\Enums\JobOfferStatus;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,6 +34,11 @@ class JobOffer extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'job_offer_category');
+    }
+
+    public function applies()
+    {
+        return $this->hasMany(Apply::class);
     }
 
     public function scopeFilter(Builder $query, array $filters)
