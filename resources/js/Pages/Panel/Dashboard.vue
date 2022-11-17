@@ -2,7 +2,7 @@
 import PanelLayout from "@/Layouts/PanelLayout.vue";
 import { Link } from '@inertiajs/inertia-vue3';
 
-defineProps(['counts'])
+defineProps(['counts', 'applications'])
 </script>
 
 <template>
@@ -33,8 +33,16 @@ defineProps(['counts'])
                     <span class="font-bold text-xl">Applications</span>
                     <Link class="bg-neutral-900 text-neutral-50 px-4 py-2">Go to applications</Link>
                 </div>
-                <div class="pt-4">
-                    list
+                <div class="pt-4 divide-y divide-neutral-200">
+                    <template v-for="application in applications">
+                        <div class="py-2 flex justify-between items-center">
+                            <div>
+                                <div>{{ application.candidate.name }}</div>
+                                <span class="text-sm">{{ application.job_offer.title }}</span>
+                            </div>
+                            <span class="px-2 py-1 capitalize text-sm rounded-full bg-neutral-200 text-neutral-600">{{ application.created_at }}</span>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
