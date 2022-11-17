@@ -4,6 +4,7 @@ namespace App\Domain\Company\Models;
 
 use App\Domain\Company\Enums\CompanyStatus;
 use App\Domain\JobOffer\Models\JobOffer;
+use App\Domain\Shared\Traits\HasMedia;
 use App\Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    use HasFactory;
+    use HasFactory, HasMedia;
 
     protected $fillable = [
         'owner_id', 'name', 'description', 'founded', 'size', 'industry', 'city', 'country', 'status'
