@@ -3,15 +3,15 @@
 namespace App\Domain\Apply\Models;
 
 use App\Domain\Apply\Enums\ApplyStatus;
-use App\Domain\JobOffer\Enums\JobOfferStatus;
 use App\Domain\JobOffer\Models\JobOffer;
+use App\Domain\Shared\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Apply extends Model
 {
-    use HasFactory;
+    use HasFactory, HasMedia;
 
     protected $fillable = ['job_offer_id', 'candidate', 'status'];
 
