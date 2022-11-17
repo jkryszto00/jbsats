@@ -3,6 +3,7 @@ import PanelLayout from "@/Layouts/PanelLayout.vue";
 import {useForm} from "@inertiajs/inertia-vue3";
 
 const form = useForm({
+    logo: null,
     name: '',
     description: '',
     founded: '',
@@ -21,6 +22,7 @@ function submit() {
   <PanelLayout>
       create company
       <form @submit.prevent="submit">
+          <input type="file" @change="form.logo = $event.target.files[0]">
           <input type="text" v-model="form.name" placeholder="name">
           <input type="text" v-model="form.description" placeholder="description">
           <input type="text" v-model="form.founded" placeholder="founded">
