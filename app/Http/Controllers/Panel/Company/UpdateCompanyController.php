@@ -14,7 +14,10 @@ class UpdateCompanyController extends Controller
         $company = auth()->user()->company;
         $companyData = CompanyData::from($request->validated());
 
-        $updateCompanyAction($company, $companyData);
+        UpdateCompanyAction::execute(
+            company: $company,
+            data: $companyData
+        );
 
         return redirect()->route('panel.company.show');
     }

@@ -24,6 +24,7 @@ class CreateCompanyRequest extends FormRequest
     public function rules()
     {
         return [
+            'image' => 'required|image',
             'name' => 'required|string',
             'description' => 'required|string',
             'founded' => 'required|numeric',

@@ -10,7 +10,7 @@ class EditCompanyController extends Controller
 {
     public function __invoke()
     {
-        $company = Company::findOrFail(1);
+        $company = auth()->user()->company;
 
         return inertia('Panel/Company/Edit', [
             'company' => new CompanyResource($company)

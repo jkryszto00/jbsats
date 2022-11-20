@@ -7,8 +7,9 @@ use App\Domain\Company\Models\Company;
 
 class UpdateCompanyAction
 {
-    public function __invoke(Company $company, CompanyData $companyData): bool
+    public static function execute(Company $company, CompanyData $data): Company
     {
-        return $company->update($companyData->toArray());
+        $company->update($data->toArray());
+        return $company;
     }
 }
