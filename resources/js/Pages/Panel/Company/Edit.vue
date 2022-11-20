@@ -1,13 +1,15 @@
 <script setup>
-import PanelLayout from "@/Layouts/PanelLayout.vue";
-import {useForm} from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/inertia-vue3";
 
-const prop = defineProps({
-    company: {
-        type: Object,
-        required: true
-    }
-})
+import PanelLayout from "@/Layouts/PanelLayout.vue";
+import Card from "@/Components/Card.vue";
+import Button from "@/Components/Button.vue";
+import Textarea from "@/Components/Form/Textarea.vue";
+import Input from "@/Components/Form/Input.vue";
+import Label from "@/Components/Form/Label.vue";
+import InputError from "@/Components/Form/InputError.vue";
+
+const prop = defineProps(['company'])
 
 const form = useForm({
     name: prop.company.name,
@@ -26,16 +28,53 @@ function submit() {
 
 <template>
     <PanelLayout>
-        edit company {{ company.name }}
-        <form @submit.prevent="submit">
-            <input type="text" v-model="form.name" placeholder="name">
-            <input type="text" v-model="form.description" placeholder="description">
-            <input type="text" v-model="form.founded" placeholder="founded">
-            <input type="text" v-model="form.size" placeholder="size">
-            <input type="text" v-model="form.industry" placeholder="industry">
-            <input type="text" v-model="form.city" placeholder="city">
-            <input type="text" v-model="form.country" placeholder="country">
-            <button type="submit">update</button>
-        </form>
+        <Card class="mx-auto max-w-2xl" title="Edit company">
+            <form @submit.prevent="submit" id="company-form">
+                <div class="mb-4">
+                    <Label name="Name" />
+                    <Input type="text" v-model="form.name" :error="form.errors.name" />
+                    <InputError :message="form.errors.name" />
+                </div>
+                <div class="mb-4">
+                    <Label name="Description" />
+                    <Textarea rows="5" v-model="form.description" :error="form.errors.description" />
+                    <InputError :message="form.errors.description" />
+                </div>
+                <div class="mb-4 flex gap-4">
+                    <div class="flex-1">
+                        <Label name="Founded" />
+                        <Input type="text" v-model="form.founded" :error="form.errors.founded" />
+                        <InputError :message="form.errors.founded" />
+                    </div>
+                    <div class="flex-1">
+                        <Label name="Size" />
+                        <Input type="text" v-model="form.size" :error="form.errors.size" />
+                        <InputError :message="form.errors.size" />
+                    </div>
+                    <div class="flex-1">
+                        <Label name="Industry" />
+                        <Input type="text" v-model="form.industry" :error="form.errors.industry" />
+                        <InputError :message="form.errors.industry" />
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <Label name="City" />
+                        <Input type="text" v-model="form.city" :error="form.errors.city" />
+                        <InputError :message="form.errors.city" />
+                    </div>
+                    <div class="flex-1">
+                        <Label name="Country" />
+                        <Input type="text" v-model="form.country" :error="form.errors.country" />
+                        <InputError :message="form.errors.country" />
+                    </div>
+                </div>
+            </form>
+            <template #footer>
+                <div class="flex justify-end">
+                    <Button type="submit" form="company-form">Update</Button>
+                </div>
+            </template>
+        </Card>
     </PanelLayout>
 </template>

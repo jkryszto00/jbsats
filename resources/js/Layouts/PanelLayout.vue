@@ -35,3 +35,9 @@ import { Link } from '@inertiajs/inertia-vue3';
         <slot />
     </main>
 </template>
+
+<style>
+body {
+    @apply bg-neutral-100;
+}
+</style>
