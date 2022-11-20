@@ -12,6 +12,7 @@ class CompanyData extends Data
     public function __construct(
         public readonly int|Optional $id,
         public readonly UserData|Optional $owner,
+        public readonly string|Optional $logo,
         public readonly string $name,
         public readonly string $description,
         public readonly int $founded,
