@@ -9,9 +9,11 @@ use Illuminate\Http\RedirectResponse;
 
 class DeleteJobOfferController extends Controller
 {
-    public function __invoke(JobOffer $jobOffer, DeleteJobOfferAction $deleteJobOfferAction): RedirectResponse
+    public function __invoke(JobOffer $jobOffer): RedirectResponse
     {
-        if ($deleteJobOfferAction($jobOffer)) {
+        $deleted = DeleteJobOfferAction::execute($jobOffer);
+
+        if (!$deleted) {
             abort(500);
         }
 
