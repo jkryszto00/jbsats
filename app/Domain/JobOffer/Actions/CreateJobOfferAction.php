@@ -8,7 +8,7 @@ use App\Domain\JobOffer\Models\JobOffer;
 
 class CreateJobOfferAction
 {
-    public function __invoke(Company $company, JobOfferData $jobOfferData): JobOffer
+    public static function execute(Company $company, JobOfferData $jobOfferData): JobOffer
     {
         $jobOffer = JobOffer::create(array_merge(['company_id' => $company->id], $jobOfferData->toArray()));
         $jobOffer->categories()->attach(array_map(fn ($category) => $category['id'], $jobOfferData->category->toArray()));
