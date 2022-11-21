@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Domain\JobOffer\Requests;
 
 use App\Domain\JobOffer\Enums\Contract\ContractCurrency;
 use App\Domain\JobOffer\Enums\Contract\ContractPer;
@@ -33,7 +33,8 @@ class UpdateJobOfferRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'required|string',
             'category' => 'required|array|min:1',
-            'category.*' => 'required|exists:categories,id',
+            'category.*.id' => 'required|exists:categories,id',
+            'category.*.name' => 'required|exists:categories,name',
             'level' => ['required', new Enum(JobOfferLevel::class)],
             'contract' => 'required|array|min:2|max:2',
             'contract.currency' => ['required', new Enum(ContractCurrency::class)],
