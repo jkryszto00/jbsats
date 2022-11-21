@@ -6,7 +6,7 @@ use App\Domain\JobOffer\Models\JobOffer;
 
 class DeleteJobOfferAction
 {
-    public function __invoke(JobOffer $jobOffer): bool
+    public static function execute(JobOffer $jobOffer): bool
     {
         $jobOffer->categories()->detach();
         return $jobOffer->delete();

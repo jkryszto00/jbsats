@@ -5,6 +5,7 @@ namespace App\Domain\JobOffer\Resources;
 use App\Domain\Company\Resources\CompanyResource;
 use App\Domain\JobOffer\Enums\JobOfferLevel;
 use App\Domain\JobOffer\Enums\JobOfferStatus;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class JobOfferResource extends JsonResource
@@ -30,7 +31,7 @@ class JobOfferResource extends JsonResource
             'contract' => $this->contract,
             'salary' => $this->salary,
             'status' => JobOfferStatus::from($this->status)->text(),
-            'expired_at' => $this->expired_at
+            'expired_at' => (new Carbon($this->expired_at))->toFormattedDateString()
         ];
     }
 }

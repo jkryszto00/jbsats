@@ -16,9 +16,12 @@ class StoreJobOfferController
     public function __invoke(CreateJobOfferRequest $request, CreateJobOfferAction $createJobOfferAction)
     {
         $validated = $request->validated();
-
-        $categories = Category::whereIn('id', $validated['category'])->get();
+        $categories = [];
         $salaries = [];
+
+        foreach ($validated['category'] as $category) {
+            $categories[] = CategoryData::from($category);
+        }
 
         foreach ($validated['salary'] as $salary) {
             $salaries[] = SalaryData::from(array_filter($salary, null));
@@ -34,7 +37,7 @@ class StoreJobOfferController
             'salary' => SalaryData::collection($salaries)
         ]);
 
-        $createJobOfferAction($company, $jobOffer);
+        CreateJobOfferAction::execute($company, $jobOffer);
 
         return redirect()->route('panel.posting.index');
     }

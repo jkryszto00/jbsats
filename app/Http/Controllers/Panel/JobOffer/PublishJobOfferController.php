@@ -7,9 +7,9 @@ use App\Domain\JobOffer\Models\JobOffer;
 
 class PublishJobOfferController
 {
-    public function __invoke(JobOffer $jobOffer, PublishJobOfferAction $publishJobOfferAction)
+    public function __invoke(JobOffer $jobOffer)
     {
-        $publishJobOfferAction($jobOffer);
+        PublishJobOfferAction::execute($jobOffer);
         return redirect()->route('panel.posting.index');
     }
 }

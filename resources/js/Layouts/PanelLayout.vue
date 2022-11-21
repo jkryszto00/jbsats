@@ -31,7 +31,13 @@ import { Link } from '@inertiajs/inertia-vue3';
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto mt-8">
+    <main class="max-w-7xl mx-auto my-8">
         <slot />
     </main>
 </template>
+
+<style>
+body {
+    @apply bg-neutral-100;
+}
+</style>
