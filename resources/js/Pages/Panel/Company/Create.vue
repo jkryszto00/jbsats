@@ -27,7 +27,7 @@ function submit() {
 
 <template>
   <PanelLayout>
-      <Card class="mx-auto max-w-2xl" title="Create company">
+      <Card  title="Create company">
           <form @submit.prevent="submit" id="company-form">
               <div class="mb-4">
                   <Label name="Logo" />
