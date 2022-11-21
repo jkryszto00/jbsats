@@ -1,41 +1,46 @@
 <script setup>
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { Link } from '@inertiajs/inertia-vue3';
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 </script>
-
 <template>
-    <nav class="py-4 bg-neutral-900 text-neutral-200">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="inline-flex items-center gap-8">
-                <div>
-                    <Link :href="route('panel.dashboard')">jbsats</Link>
+    <nav class="bg-neutral-800">
+        <div class="mx-auto px-4">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <Link :href="route('site.index')" class="font-bold text-neutral-300">jbsats</Link>
+                    </div>
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <Link :href="route('panel.dashboard')" class="px-3 py-2 rounded-md text-sm font-semibold" :class="[$page.url === '/panel' ? 'bg-neutral-900 text-white' : 'text-neutral-300 hover:bg-neutral-700 hover:text-white']">Dashboard</Link>
+                        <Link :href="route('panel.posting.index')" class="px-3 py-2 rounded-md text-sm font-semibold" :class="[$page.url.startsWith('/panel/posting') ? 'bg-neutral-900 text-white' : 'text-neutral-300 hover:bg-neutral-700 hover:text-white']">Jobs</Link>
+                        <Link :href="route('panel.apply.index')" class="px-3 py-2 rounded-md text-sm font-semibold" :class="[$page.url.startsWith('/panel/candidates') ? 'bg-neutral-900 text-white' : 'text-neutral-300 hover:bg-neutral-700 hover:text-white']">Applications</Link>
+                        <Link :href="route('panel.company.show')" class="px-3 py-2 rounded-md text-sm font-semibold" :class="[$page.url.startsWith('/panel/company') ? 'bg-neutral-900 text-white' : 'text-neutral-300 hover:bg-neutral-700 hover:text-white']">Company</Link>
+                    </div>
                 </div>
-
-                <div class="inline-flex items-center gap-4">
-                    <Link :href="route('panel.dashboard')">Dashboard</Link>
-                    <Link :href="route('panel.posting.index')">Jobs</Link>
-                    <Link :href="route('panel.apply.index')">Applications</Link>
-                    <Link :href="route('panel.company.show')">Company</Link>
+                <div class="ml-4 flex items-baseline space-x-4">
+                    <Menu as="div" class="relative">
+                        <MenuButton>
+                            <span class="text-neutral-300">{{ $page.props.auth.user.name }}</span>
+                        </MenuButton>
+                        <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                            <MenuItems class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <MenuItem v-slot="{ active }">
+                                    <Link :href="route('site.index')" :class="[active ? 'bg-neutral-100' : '', 'block px-4 py-2 text-sm text-neutral-700']">Go to site</Link>
+                                </MenuItem>
+                                <MenuItem v-slot="{ active }">
+                                    <Link :href="route('logout')" method="post" as="button" :class="[active ? 'bg-neutral-100' : '', 'w-full text-left px-4 py-2 text-sm text-neutral-700']">Logout</Link>
+                                </MenuItem>
+                            </MenuItems>
+                        </transition>
+                    </Menu>
                 </div>
             </div>
-            <Menu as="div" class="relative">
-                <MenuButton>
-                    {{ $page.props.auth.user.name }}
-                </MenuButton>
-                <MenuItems class="absolute z-10 right-0 mt-1 w-32 origin-top-right bg-neutral-600 border border-neutral-700 shadow-md">
-                    <MenuItem v-slot="{ active }">
-                        <Link :href="route('logout')" method="post" as="button" class="w-full flex px-2 py-0.5 hover:bg-neutral-800">Logout</Link>
-                    </MenuItem>
-                </MenuItems>
-            </Menu>
         </div>
     </nav>
-
-    <main class="max-w-7xl mx-auto my-8">
+    <main class="mx-auto max-w-7xl py-8">
         <slot />
     </main>
 </template>
-
 <style>
 body {
     @apply bg-neutral-100;
