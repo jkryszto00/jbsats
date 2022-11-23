@@ -34,7 +34,7 @@ const isLogged = computed(() => !isNull(usePage().props.value.auth.user))
                         </MenuButton>
                         <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                             <MenuItems class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white divide-y divide-neutral-100 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <div class="py-1">
+                                <div v-if="$page.props.auth.isEmployer" class="py-1">
                                     <MenuItem v-slot="{ active }">
                                         <Link :href="route('panel.dashboard')" :class="[active ? 'bg-neutral-100' : '', 'block px-4 py-2 text-sm text-neutral-700']">Go to panel</Link>
                                     </MenuItem>
@@ -58,13 +58,13 @@ const isLogged = computed(() => !isNull(usePage().props.value.auth.user))
                 </div>
             </div>
         </nav>
-        <div v-if="slots.hero" class="h-52 pt-10">
-            <h1 class="text-center font-bold text-4xl text-neutral-100"><slot name="hero" /></h1>
+        <div v-if="slots['hero-heading']" class="h-52 pt-10">
+            <h1 class="text-center font-bold text-4xl text-neutral-100"><slot name="hero-heading" /></h1>
         </div>
     </div>
-    <div :class="[slots.hero ? '-mt-16' : '', 'mx-auto max-w-7xl']">
-        <Card v-if="slots.hero">
-            <JobOfferFilter />
+    <div :class="[slots['hero-content'] ? '-mt-16' : '', 'mx-auto max-w-7xl']">
+        <Card v-if="slots['hero-content']">
+            <slot name="hero-content"></slot>
         </Card>
 
         <slot />
