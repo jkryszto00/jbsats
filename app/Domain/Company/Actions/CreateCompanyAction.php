@@ -9,9 +9,9 @@ use App\Domain\User\Data\UserData;
 
 class CreateCompanyAction
 {
-    public static  function execute(UserData $owner, FileData $logo, CompanyData $company): Company
+    public static  function execute(UserData $owner, FileData $logo, CompanyData $companyData): Company
     {
-        $company = Company::create([...$company->toArray(), 'owner_id' => $owner->id]);
+        $company = Company::create([...$companyData->toArray(), 'owner_id' => $owner->id]);
         $company->media()->create($logo->toArray());
 
         return $company;

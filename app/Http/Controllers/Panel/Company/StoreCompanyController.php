@@ -16,11 +16,7 @@ class StoreCompanyController
         $owner = UserData::from(auth()->user());
         $company = CompanyData::from($request->validated());
 
-        CreateCompanyAction::execute(
-            owner: $owner,
-            logo: $logo,
-            company:$company
-        );
+        CreateCompanyAction::execute($owner, $logo, $company);
 
         return redirect()->route('panel.company.show');
     }
