@@ -10,7 +10,7 @@ class CreateJobOfferAction
 {
     public static function execute(Company $company, JobOfferData $jobOfferData): JobOffer
     {
-        $jobOffer = JobOffer::create(array_merge(['company_id' => $company->id], $jobOfferData->toArray()));
+        $jobOffer = JobOffer::create([...$jobOfferData->toArray(), 'company_id' => $company->id]);
 
         $jobOffer->categories()->attach(array_map(fn ($category) => $category['id'], $jobOfferData->categories->toArray()));
         $jobOffer->contract()->create($jobOfferData->contract->toArray());
