@@ -9,16 +9,16 @@ import Input from "@/Components/Form/Input.vue";
 import Label from "@/Components/Form/Label.vue";
 import InputError from "@/Components/Form/InputError.vue";
 
-const prop = defineProps(['company'])
+const prop = defineProps(['model'])
 
 const form = useForm({
-    name: prop.company.name,
-    description: prop.company.description,
-    founded: prop.company.founded,
-    size: prop.company.size,
-    industry: prop.company.industry,
-    city: prop.company.city,
-    country: prop.company.country
+    name: prop.model.company.name,
+    description: prop.model.company.description,
+    founded: prop.model.company.founded,
+    size: prop.model.company.size,
+    industry: prop.model.company.industry,
+    city: prop.model.company.city,
+    country: prop.model.company.country
 })
 
 function submit() {

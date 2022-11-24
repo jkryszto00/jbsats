@@ -5,15 +5,15 @@ import SiteLayout from "@/Layouts/SiteLayout.vue";
 import Button from "@/Components/Button.vue";
 import CompanyList from "@/Pages/Site/Partials/Company/CompanyList.vue";
 
-defineProps(['companies', 'companiesCount'])
+defineProps(['model'])
 </script>
 
 <template>
     <SiteLayout>
         <CompanyList
             class="my-8"
-            :title="`Companies (${companiesCount})`"
-            :companies="companies"
+            :title="`Companies (${model.companies.length})`"
+            :companies="model.companies"
         />
 
         <div class="mb-8 flex justify-center">

@@ -19,16 +19,19 @@ class CompanyData extends Data
         public readonly int $founded,
         public readonly string $size,
         public readonly string $industry,
+        public readonly string|Optional $location,
         public readonly string $city,
         public readonly string $country,
-        public readonly CompanyStatus|Optional $status
+        public readonly CompanyStatus|Optional $status,
+        public readonly int|Optional $job_offers_count
     ) {}
 
     public static function fromModel(Company $company): self
     {
         return self::from([
             ...$company->toArray(),
-            'logo' => $company->logo
+            'logo' => $company->logo,
+            'location' => $company->location,
         ]);
     }
 }

@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers\Site\Company;
 
-use App\Domain\Company\Models\Company;
-use App\Domain\Company\Resources\CompanyResource;
+use App\Domain\Company\ViewModels\SiteCompanyCollectionViewModel;
 
 class IndexCompanyController
 {
     public function __invoke()
     {
-        $companies = Company::withCount('jobOffers')->get();
-        $companiesCount = $companies->count();
-
         return inertia('Site/Company/Index', [
-            'companies' => CompanyResource::collection($companies),
-            'companiesCount' => $companiesCount
+            'model' => new SiteCompanyCollectionViewModel()
         ]);
     }
 }

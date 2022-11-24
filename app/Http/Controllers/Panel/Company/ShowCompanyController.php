@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel\Company;
 
 use App\Domain\Company\Resources\CompanyResource;
+use App\Domain\Company\ViewModels\UpsertCompanyViewModel;
 use App\Http\Controllers\Controller;
 
 class ShowCompanyController extends Controller
@@ -12,7 +13,7 @@ class ShowCompanyController extends Controller
         $company = auth()->user()->company;
 
         return inertia('Panel/Company/Show', [
-            'company' => new CompanyResource($company)
+            'model' => new UpsertCompanyViewModel($company)
         ]);
     }
 }

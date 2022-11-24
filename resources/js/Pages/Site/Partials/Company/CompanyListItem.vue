@@ -9,7 +9,7 @@ defineProps(['company'])
             {{ company.name }}
         </div>
         <div class="text-sm text-neutral-500 text-center">
-            {{ company.job_offers.length }} jobs offers
+            {{ company.job_offers_count }} jobs offers
         </div>
     </Link>
 </template>

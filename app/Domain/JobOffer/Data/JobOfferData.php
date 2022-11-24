@@ -20,7 +20,7 @@ class JobOfferData extends Data
         #[DataCollectionOf(CategoryData::class)]
         public readonly DataCollection|Optional $categories,
         public readonly LevelData $level,
-        public readonly ContractData $contract,
+        public readonly ContractData|Optional $contract,
         #[DataCollectionOf(SalaryData::class)]
         public readonly DataCollection|Optional $salaries,
         public readonly JobOfferStatus|Optional $status,
