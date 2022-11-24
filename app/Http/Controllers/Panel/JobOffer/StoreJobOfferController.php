@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Panel\JobOffer;
 
-use App\Domain\Company\Models\Company;
 use App\Domain\JobOffer\Actions\CreateJobOfferAction;
 use App\Domain\JobOffer\Data\CategoryData;
 use App\Domain\JobOffer\Data\ContractData;
@@ -17,6 +16,7 @@ class StoreJobOfferController
     public function __invoke(CreateJobOfferRequest $request, CreateJobOfferAction $createJobOfferAction)
     {
         $validated = $request->validated();
+        $company = auth()->user()->company;
 
         $jobOffer = JobOfferData::from([
             'title' => $validated['title'],
@@ -30,7 +30,7 @@ class StoreJobOfferController
             'salaries' => SalaryData::collection(array_map(fn ($salary) => SalaryData::from($salary), $validated['salary']))
         ]);
 
-        CreateJobOfferAction::execute(Company::findOrFail(auth()->id()), $jobOffer);
+        CreateJobOfferAction::execute($company, $jobOffer);
 
         return redirect()->route('panel.posting.index');
     }
