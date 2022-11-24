@@ -41,9 +41,8 @@ class CreateJobOfferRequest extends FormRequest
             'contract.time' => ['required', new Enum(ContractTime::class)],
             'salary' => 'required|array|min:1|max:3',
             'salary.*.type' => ['required', new Enum(ContractType::class)],
-            'salary.*.from' => 'nullable|integer',
-            'salary.*.to' => 'nullable|integer',
-            'salary.*.exact' => 'nullable|integer',
+            'salary.*.from' => 'required|integer',
+            'salary.*.to' => 'required|integer',
             'salary.*.per' => ['required', new Enum(ContractPer::class)]
         ];
     }

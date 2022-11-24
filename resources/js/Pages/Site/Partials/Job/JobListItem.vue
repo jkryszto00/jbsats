@@ -20,8 +20,7 @@ const formatter = new Intl.NumberFormat('us-US')
             </template>
         </div>
         <div class="px-2 py-0.5 rounded bg-neutral-100 text-neutral-700">
-            <span v-if="job.salary[0].from" class="uppercase">{{ formatter.format(job.salary[0].from) }} - {{ formatter.format(job.salary[0].to) }} {{ job.contract.currency }}</span>
-            <span v-else class="uppercase">{{ formatter.format(job.salary[0].exact) }} {{ job.contract.currency }}</span>
+            <span class="uppercase">{{ formatter.format(job.salaries[0].from) }} - {{ formatter.format(job.salaries[0].to) }} {{ job.contract.currency }}</span>
         </div>
     </div>
 </template>

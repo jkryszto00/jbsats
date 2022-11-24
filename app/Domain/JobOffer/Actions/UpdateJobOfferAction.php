@@ -10,7 +10,12 @@ class UpdateJobOfferAction
     public static function execute(JobOffer $jobOffer, JobOfferData $jobOfferData)
     {
         $jobOffer->update($jobOfferData->toArray());
-        $jobOffer->categories()->sync(array_map(fn ($category) => $category['id'], $jobOfferData->category->toArray()));
+        $jobOffer->categories()->sync(array_map(fn ($category) => $category['id'], $jobOfferData->categories->toArray()));
+
+        $jobOffer->contract()->update($jobOfferData->contract->toArray());
+
+        $jobOffer->salaries()->delete();
+        $jobOffer->salaries()->createMany($jobOfferData->salaries->toArray());
 
         return $jobOffer;
     }

@@ -10,11 +10,11 @@ import Card from "@/Components/Card.vue";
 import Button from "@/Components/Button.vue";
 import Input from "@/Components/Form/Input.vue";
 
-const props = defineProps(['jobOffers', 'statuses', 'filters'])
+const prop = defineProps(['model'])
 
 const filters = ref({
-    title: props.filters.title,
-    status: props.filters.status
+    title: prop.model.filters.title,
+    status: prop.model.filters.status
 })
 
 watch(filters, debounce(() => {
@@ -34,7 +34,7 @@ watch(filters, debounce(() => {
         <Card>
             <template #header>
                 <div class="flex items-center justify-between">
-                    <span class="font-bold text-lg text-neutral-900">Job offers ({{ jobOffers.length }})</span>
+                    <span class="font-bold text-lg text-neutral-900">Job offers ({{ model.job_offers.length }})</span>
                     <Link :href="route('panel.posting.create')"><Button>Post offer</Button></Link>
                 </div>
             </template>
@@ -52,7 +52,7 @@ watch(filters, debounce(() => {
                                         All
                                     </li>
                                 </ListboxOption>
-                                <ListboxOption as="template" v-for="status in statuses" :value="status" v-slot="{ active, selected }">
+                                <ListboxOption as="template" v-for="status in model.statuses" :value="status" v-slot="{ active, selected }">
                                     <li :class="[active ? 'text-neutral-900 bg-neutral-100' : 'text-neutral-700', 'relative cursor-default capitalize select-none py-2 pl-3 pr-9']">
                                         {{ status }}
                                     </li>
@@ -63,7 +63,7 @@ watch(filters, debounce(() => {
                 </Listbox>
             </div>
             <div class="divide-y divide-neutral-200">
-                <template v-for="job in jobOffers">
+                <template v-for="job in model.job_offers">
                     <div class="first:pt-0 py-2 flex items-center justify-between">
                         <div class="space-y-1">
                             <div class="font-semibold">{{ job.title }}</div>

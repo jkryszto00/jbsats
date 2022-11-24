@@ -4,8 +4,10 @@ namespace App\Domain\JobOffer\Models;
 
 use App\Domain\Apply\Models\Apply;
 use App\Domain\Company\Models\Company;
+use App\Domain\JobOffer\Enums\JobOfferLevel;
 use App\Domain\JobOffer\Enums\JobOfferStatus;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,18 +15,26 @@ class JobOffer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_id', 'title', 'description', 'level', 'contract', 'salary', 'status', 'expired_at'];
+    protected $fillable = ['company_id', 'title', 'description', 'level', 'status', 'expired_at'];
 
     protected $attributes = [
         'status' => JobOfferStatus::DRAFTS
     ];
 
     protected $casts = [
-        'contract' => 'array',
-        'salary' => 'array',
-        'status' => 'integer',
         'expired_at' => 'datetime'
     ];
+
+    protected function level(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => [
+                'name' => JobOfferLevel::tryFrom($attributes['level'])->text(),
+                'value' => JobOfferLevel::tryFrom($attributes['level'])->value
+            ],
+            set: fn ($level, $attributes) => $level['value']
+        );
+    }
 
     public function company()
     {
@@ -34,6 +44,16 @@ class JobOffer extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'job_offer_category');
+    }
+
+    public function contract()
+    {
+        return $this->hasOne(JobContract::class);
+    }
+
+    public function salaries()
+    {
+        return $this->hasMany(JobSalary::class);
     }
 
     public function applies()
@@ -51,17 +71,15 @@ class JobOffer extends Model
             });
         })->when($filters['status'] ?? null, function ($query, $status) {
             match($status) {
-                JobOfferStatus::PUBLISHED->text() => $this->scopePublished($query),
-                JobOfferStatus::DRAFTS->text() => $this->scopeDraft($query),
+                JobOfferStatus::PUBLISHED => $this->scopePublished($query),
+                JobOfferStatus::DRAFTS => $this->scopeDrafts($query),
                 default => null
             };
         })->when($filters['level'] ?? null, function ($query, $level) {
             $query->whereIn('level', $level);
-        })->when($filters['contract'] ?? null, function ($query, $contract) {
-            $query->where(function ($query) use ($contract) {
-               foreach ($contract as $c) {
-                   $query->orWhereJsonContains('salary', ['type' => $c]);
-               }
+        })->when($filters['type'] ?? null, function ($query, $type) {
+            $query->whereHas('salaries', function ($query) use ($type) {
+               $query->whereIn('type', $type);
             });
         });
     }
@@ -71,7 +89,7 @@ class JobOffer extends Model
         $query->where('status', JobOfferStatus::PUBLISHED);
     }
 
-    public function scopeDraft(Builder $query)
+    public function scopeDrafts(Builder $query)
     {
         $query->where('status', JobOfferStatus::DRAFTS);
     }

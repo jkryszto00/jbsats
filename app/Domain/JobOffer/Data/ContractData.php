@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\JobOffer\Data\Contract;
+namespace App\Domain\JobOffer\Data;
 
 use App\Domain\JobOffer\Enums\Contract\ContractCurrency;
 use App\Domain\JobOffer\Enums\Contract\ContractTime;

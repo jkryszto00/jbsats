@@ -3,11 +3,8 @@
 namespace App\Domain\JobOffer\Data;
 
 use App\Domain\Company\Data\CompanyData;
-use App\Domain\JobOffer\Data\Contract\ContractData;
-use App\Domain\JobOffer\Data\Contract\SalaryData;
-use App\Domain\JobOffer\Enums\JobOfferLevel;
 use App\Domain\JobOffer\Enums\JobOfferStatus;
-use DateTimeImmutable;
+use Carbon\Carbon;
 use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
@@ -21,12 +18,12 @@ class JobOfferData extends Data
         public readonly string $title,
         public readonly string $description,
         #[DataCollectionOf(CategoryData::class)]
-        public readonly DataCollection|Optional $category,
-        public readonly JobOfferLevel $level,
+        public readonly DataCollection|Optional $categories,
+        public readonly LevelData $level,
         public readonly ContractData $contract,
         #[DataCollectionOf(SalaryData::class)]
-        public readonly DataCollection|Optional $salary,
+        public readonly DataCollection|Optional $salaries,
         public readonly JobOfferStatus|Optional $status,
-        public readonly \DateTime|DateTimeImmutable|Optional|null $expired_at
+        public readonly Carbon|Optional|null $expired_at
     ){}
 }

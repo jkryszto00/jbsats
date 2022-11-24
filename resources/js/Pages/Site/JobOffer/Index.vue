@@ -2,20 +2,28 @@
 import { Link } from '@inertiajs/inertia-vue3';
 
 import SiteLayout from "@/Layouts/SiteLayout.vue";
+import JobOfferFilter from "@/Pages/Site/Partials/JobOfferFilter.vue";
 import JobsList from "@/Pages/Site/Partials/Job/JobsList.vue";
 
 import Button from "@/Components/Button.vue";
 
-defineProps(['jobOffers', 'jobOffersCount'])
+defineProps(['model'])
 </script>
 <template>
     <SiteLayout>
-        <template #hero>Top Remote Job Board. Salary in Every Ad.</template>
+        <template #hero-heading>Top Remote Job Board. Salary in Every Ad.</template>
+        <template #hero-content>
+            <JobOfferFilter
+                :categories="model.categories"
+                :levels="model.levels"
+                :contracts="model.types"
+            />
+        </template>
 
         <JobsList
             class="my-8"
-            :title="`Jobs (${jobOffersCount})`"
-            :jobs="jobOffers"
+            :title="`Jobs (${model.job_offers.length})`"
+            :jobs="model.job_offers"
         />
 
         <div class="mb-8 flex justify-center">

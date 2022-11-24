@@ -5,6 +5,7 @@ namespace App\Domain\User\Actions;
 use App\Domain\User\Data\UserData;
 use App\Domain\User\Mail\UserCreated;
 use App\Domain\User\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class CreateUserAction
@@ -14,7 +15,7 @@ class CreateUserAction
         $user = User::create([
             'name' => $userData->name,
             'email' => $userData->email,
-            'password' => $userData->password,
+            'password' => Hash::make($userData->password),
             'is_employer' => $userData->is_employer,
         ]);
 
