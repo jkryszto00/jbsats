@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref} from "vue";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
 import { isNull } from "lodash/lang";
 import { upperCase } from "lodash/string";
 import {
@@ -53,8 +53,8 @@ const submit = () => form.post(route('site.jobs.apply', { jobOffer: props.jobOff
                 <div class="flex items-center gap-2 pb-2">
                     <img :src="model.job_offer.company.logo" :alt="model.job_offer.company.name" class="rounded border object-cover h-12 w-12" />
                     <div>
-                        <div class="text-2xl font-bold">{{ model.job_offer.title }}</div>
-                        <Link :href="route('site.companies.show', { company: model.job_offer.company })">{{ model.job_offer.company.name }}</Link>
+                        <div class="text-neutral-900 text-2xl font-bold">{{ model.job_offer.title }}</div>
+                        <Link :href="route('site.companies.show', { company: model.job_offer.company })" class="text-neutral-700">{{ model.job_offer.company.name }}</Link>
                     </div>
                 </div>
                 <div class="flex justify-between gap-4 py-4">
