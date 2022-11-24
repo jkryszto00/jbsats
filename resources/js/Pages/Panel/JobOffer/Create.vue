@@ -11,13 +11,12 @@ import Input from "@/Components/Form/Input.vue";
 import Label from "@/Components/Form/Label.vue";
 import InputError from "@/Components/Form/InputError.vue";
 
-const prop = defineProps(['categories', 'levels', 'currencies', 'times', 'types', 'pers'])
+defineProps(['model'])
 
 const newSalary = ref({
     type: '',
     from: '',
     to: '',
-    exact: '',
     per: ''
 })
 
@@ -26,7 +25,6 @@ function addNewSalary() {
         type: newSalary.value.type,
         from: newSalary.value.from,
         to: newSalary.value.to,
-        exact: newSalary.value.exact,
         per: newSalary.value.per
     })
 
@@ -88,7 +86,7 @@ const submit = () => {
                                 </ListboxButton>
                                 <transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
                                     <ListboxOptions class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        <ListboxOption as="template" v-for="category in categories" :key="category.id" :value="category" v-slot="{ active, selected }">
+                                        <ListboxOption as="template" v-for="category in model.categories" :key="category.id" :value="category" v-slot="{ active, selected }">
                                             <li :class="[active ? 'text-neutral-900 bg-neutral-100' : 'text-neutral-700', 'relative cursor-default select-none py-2 pl-3 pr-9']">
                                                 {{ category.name }}
                                                 <span v-if="selected" :class="[active ? 'text-neutral-700' : 'text-neutral-500', 'absolute inset-y-0 right-0 flex items-center pr-4']">
@@ -107,7 +105,7 @@ const submit = () => {
                     <div class="flex-1">
                         <Label name="Level" />
                         <select v-model="form.level" class="w-full capitalize block mb-1 px-2 py-1 text-neutral-700 border rounded-md shadow-sm" :class="[form.errors.level ? 'border-red-400' : 'border-neutral-300']">
-                            <template v-for="level in levels">
+                            <template v-for="level in model.levels">
                                 <option :value="level.value">{{ level.name }}</option>
                             </template>
                         </select>
@@ -118,7 +116,7 @@ const submit = () => {
                     <div class="flex-1">
                         <Label name="Long" />
                         <select v-model="form.contract.time" class="w-full block capitalize mb-1 px-2 py-1 text-neutral-700 border rounded-md shadow-sm" :class="[form.errors['contract.time'] ? 'border-red-400' : 'border-neutral-300']">
-                            <template v-for="time in times">
+                            <template v-for="time in model.times">
                                 <option :value="time">{{ time }}</option>
                             </template>
                         </select>
@@ -127,7 +125,7 @@ const submit = () => {
                     <div class="flex-1">
                         <Label name="Currency" />
                         <select v-model="form.contract.currency" class="w-full block uppercase mb-1 px-2 py-1 text-neutral-700 border rounded-md shadow-sm" :class="[form.errors['contract.currency'] ? 'border-red-400' : 'border-neutral-300']">
-                            <template v-for="currency in currencies">
+                            <template v-for="currency in model.currencies">
                                 <option :value="currency">{{ currency }}</option>
                             </template>
                         </select>
@@ -155,7 +153,7 @@ const submit = () => {
                 </div>
                 <div class="flex gap-2">
                     <select v-model="newSalary.type" class="w-3/12 block capitalize px-2 py-1 text-neutral-700 border border-neutral-300 rounded-md shadow-sm">
-                        <template v-for="type in types">
+                        <template v-for="type in model.types">
                             <option :value="type">{{ type }}</option>
                         </template>
                     </select>
@@ -165,7 +163,7 @@ const submit = () => {
                         <Input type="number" v-model="newSalary.to" min="0" placeholder="To" class="flex-1 mb-0" />
                     </div>
                     <select v-model="newSalary.per" class="w-2/12 block capitalize px-2 py-1 text-neutral-700 border border-neutral-300 rounded-md shadow-sm">
-                        <template v-for="per in pers">
+                        <template v-for="per in model.pers">
                             <option :value="per">{{ per }}</option>
                         </template>
                     </select>

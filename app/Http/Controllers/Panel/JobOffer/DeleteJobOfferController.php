@@ -11,11 +11,7 @@ class DeleteJobOfferController extends Controller
 {
     public function __invoke(JobOffer $jobOffer): RedirectResponse
     {
-        $deleted = DeleteJobOfferAction::execute($jobOffer);
-
-        if (!$deleted) {
-            abort(500);
-        }
+        DeleteJobOfferAction::execute($jobOffer);
 
         return redirect()->route('panel.posting.index');
     }

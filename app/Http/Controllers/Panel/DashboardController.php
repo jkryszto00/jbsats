@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $counts = [
             'published' => JobOffer::published()->count(),
-            'draft' => JobOffer::draft()->count(),
+            'draft' => JobOffer::drafts()->count(),
             'expired' => JobOffer::expired()->count()
         ];
 

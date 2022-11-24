@@ -2,16 +2,9 @@
 
 namespace App\Domain\JobOffer\Enums;
 
-enum JobOfferStatus: int
+enum JobOfferStatus: string
 {
-    case PUBLISHED = 1;
-    case DRAFTS = 2;
-
-    public function text(): string
-    {
-        return match($this) {
-            self::PUBLISHED => 'published',
-            self::DRAFTS => 'drafts'
-        };
-    }
+    case PUBLISHED = 'published';
+    case DRAFTS = 'drafts';
+    case EXPIRED = 'expired';
 }

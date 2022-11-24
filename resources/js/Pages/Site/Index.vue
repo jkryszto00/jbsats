@@ -7,34 +7,29 @@ import JobsList from "@/Pages/Site/Partials/Job/JobsList.vue";
 
 import Button from "@/Components/Button.vue";
 
-defineProps([
-    'categories',
-    'contracts',
-    'levels',
-    'jobOffers'
-])
+defineProps(['model'])
 </script>
 <template>
     <SiteLayout>
         <template #hero-heading>Top Remote Job Board. Salary in Every Ad.</template>
         <template #hero-content>
             <JobOfferFilter
-                :categories="categories"
-                :levels="levels"
-                :contracts="contracts"
+                :categories="model.categories"
+                :levels="model.levels"
+                :contracts="model.types"
             />
         </template>
 
         <JobsList
             class="my-8"
             title="Jobs of the day"
-            :jobs="jobOffers"
+            :jobs="model.job_offers"
         />
 
         <JobsList
             class="my-8"
             title="Newest jobs"
-            :jobs="jobOffers"
+            :jobs="model.job_offers"
         />
 
         <div class="mb-8 flex justify-center">

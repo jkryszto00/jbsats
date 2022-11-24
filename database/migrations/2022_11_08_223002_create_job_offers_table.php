@@ -21,8 +21,6 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->enum('level', array_map(fn (JobOfferLevel $level) => $level->value, JobOfferLevel::cases()));
-            $table->json('contract');
-            $table->json('salary');
             $table->enum('status', array_map(fn (JobOfferStatus $status) => $status->value, JobOfferStatus::cases()));
             $table->timestamp('expired_at')->nullable();
             $table->timestamps();

@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Panel\JobOffer;
 
 use App\Domain\JobOffer\Actions\UpdateJobOfferAction;
 use App\Domain\JobOffer\Data\CategoryData;
-use App\Domain\JobOffer\Data\Contract\ContractData;
-use App\Domain\JobOffer\Data\Contract\SalaryData;
+use App\Domain\JobOffer\Data\ContractData;
 use App\Domain\JobOffer\Data\JobOfferData;
+use App\Domain\JobOffer\Data\LevelData;
+use App\Domain\JobOffer\Data\SalaryData;
 use App\Domain\JobOffer\Enums\JobOfferLevel;
 use App\Domain\JobOffer\Models\JobOffer;
 use App\Domain\JobOffer\Requests\UpdateJobOfferRequest;
@@ -17,24 +18,17 @@ class UpdateJobOfferController extends Controller
     public function __invoke(JobOffer $jobOffer, UpdateJobOfferRequest $request)
     {
         $validated = $request->validated();
-        $salaries = [];
-        $categories = [];
-
-        foreach ($validated['category'] as $category) {
-            $categories[] = CategoryData::from($category);
-        }
-
-        foreach ($validated['salary'] as $salary) {
-            $salaries[] = SalaryData::from(array_filter($salary, null));
-        }
 
         $jobOfferData = JobOfferData::from([
             'title' => $validated['title'],
             'description' => $validated['description'],
-            'category' => CategoryData::collection($categories),
-            'level' => JobOfferLevel::from($validated['level']),
+            'categories' => CategoryData::collection(array_map(fn ($category) => CategoryData::from($category), $validated['category'])),
+            'level' => LevelData::from([
+                'name' => JobOfferLevel::tryFrom($validated['level'])->text(),
+                'value' => JobOfferLevel::tryFrom($validated['level'])->value
+            ]),
             'contract' => ContractData::from($validated['contract']),
-            'salary' => SalaryData::collection($salaries)
+            'salaries' => SalaryData::collection(array_map(fn ($salary) => SalaryData::from($salary), $validated['salary']))
         ]);
 
         UpdateJobOfferAction::execute($jobOffer, $jobOfferData);
