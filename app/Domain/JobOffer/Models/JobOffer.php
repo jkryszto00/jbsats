@@ -44,13 +44,25 @@ class JobOffer extends Model
     public function scopeFilter(Builder $query, array $filters)
     {
         $query->when($filters['title'] ?? null, function ($query, $title) {
-            $query->where('title', 'like', '%'.$title.'%');
+            $query->where('title', 'like', '%' . $title . '%');
+        })->when($filters['category'] ?? null, function ($query, $category) {
+            $query->whereHas('categories', function ($query) use ($category) {
+                $query->whereIn('name', $category);
+            });
         })->when($filters['status'] ?? null, function ($query, $status) {
             match($status) {
                 JobOfferStatus::PUBLISHED->text() => $this->scopePublished($query),
                 JobOfferStatus::DRAFTS->text() => $this->scopeDraft($query),
                 default => null
             };
+        })->when($filters['level'] ?? null, function ($query, $level) {
+            $query->whereIn('level', $level);
+        })->when($filters['contract'] ?? null, function ($query, $contract) {
+            $query->where(function ($query) use ($contract) {
+               foreach ($contract as $c) {
+                   $query->orWhereJsonContains('salary', ['type' => $c]);
+               }
+            });
         });
     }
 

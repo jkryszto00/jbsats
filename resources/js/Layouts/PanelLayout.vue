@@ -20,7 +20,7 @@ import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
                 <div class="ml-4 flex items-baseline space-x-4">
                     <Menu as="div" class="relative">
                         <MenuButton>
-                            <span class="text-neutral-300">{{ $page.props.auth.user.name }}</span>
+                            <span class="text-sm text-neutral-300">{{ $page.props.auth.user.name }}</span>
                         </MenuButton>
                         <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                             <MenuItems class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
