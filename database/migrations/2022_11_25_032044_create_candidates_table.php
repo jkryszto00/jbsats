@@ -1,6 +1,5 @@
 <?php
 
-use App\Domain\Apply\Enums\ApplyStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applies', function (Blueprint $table) {
+        Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_offer_id');
-            $table->foreignId('candidate_id');
-            $table->enum('status', array_map(fn (ApplyStatus $status) => $status->value, ApplyStatus::cases()));
+            $table->string('name');
+            $table->string('email');
+            $table->string('about');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applies');
+        Schema::dropIfExists('candidates');
     }
 };

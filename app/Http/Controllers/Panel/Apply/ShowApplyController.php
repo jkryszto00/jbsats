@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Panel\Apply;
 
+use App\Domain\Apply\ViewModels\PanelCollectionApplyViewModel;
 use App\Domain\JobOffer\Models\JobOffer;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ShowApplyController extends Controller
 {
-    public function __invoke(JobOffer $jobOffer)
+    public function __invoke(JobOffer $jobOffer, Request $request)
     {
-        $applies = $jobOffer->applies()->rejected()->get();
-
         return inertia('Panel/Apply/Show', [
-            'jobOffer' => $jobOffer,
-            'applies' => $applies
+            'model' => new PanelCollectionApplyViewModel($jobOffer, $request)
         ]);
     }
 }

@@ -9,7 +9,7 @@ class AcceptApplyAction
 {
     public static function execute(Apply $apply): Apply
     {
-        if ($apply->status !== ApplyStatus::APPLIED) {
+        if ($apply->status !== ApplyStatus::APPLIED->value) {
             throw new \Exception('Accept apply not allowed');
         }
 

@@ -24,6 +24,8 @@ Route::get('companies/{company}', \App\Http\Controllers\Site\Company\ShowCompany
 
 Route::post('jobs/{jobOffer}/apply', \App\Http\Controllers\Site\JobOffer\ApplyJobOfferController::class)->name('site.jobs.apply');
 
+Route::get('/files/{name}', \App\Http\Controllers\Panel\ShowCvController::class)->name('files.show');
+
 Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
     Route::get('', \App\Http\Controllers\Panel\DashboardController::class)->name('panel.dashboard');
 
