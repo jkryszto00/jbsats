@@ -2,8 +2,10 @@
 
 namespace App\Domain\Apply\Data;
 
-use Illuminate\Http\UploadedFile;
+use App\Domain\Apply\Models\Candidate;
+use App\Domain\Shared\Data\FileData;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Optional;
 
 class CandidateData extends Data
 {
@@ -11,15 +13,15 @@ class CandidateData extends Data
         public readonly string $name,
         public readonly string $email,
         public readonly string $about,
-//        public readonly UploadedFile $cv
+        public readonly FileData|Optional $cv
     ){}
 
-    public static function rules(): array
+    public static function fromModel(Candidate $candidate): self
     {
-        return [
-            'name' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            'about' => ['required', 'string']
-        ];
+        return self::from([
+            ...$candidate->toArray(),
+            'cv' => $candidate->cv
+        ]);
     }
 }
+
