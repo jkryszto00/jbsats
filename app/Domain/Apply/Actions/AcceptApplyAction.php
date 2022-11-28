@@ -3,6 +3,7 @@
 namespace App\Domain\Apply\Actions;
 
 use App\Domain\Apply\Enums\ApplyStatus;
+use App\Domain\Apply\Exceptions\CannotChangeApplyStatusException;
 use App\Domain\Apply\Models\Apply;
 
 class AcceptApplyAction
@@ -10,7 +11,7 @@ class AcceptApplyAction
     public static function execute(Apply $apply): Apply
     {
         if ($apply->status !== ApplyStatus::APPLIED->value) {
-            throw new \Exception('Accept apply not allowed');
+            throw new CannotChangeApplyStatusException('Accept apply not allowed');
         }
 
         $apply->update([
