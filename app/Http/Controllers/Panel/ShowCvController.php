@@ -10,7 +10,7 @@ class ShowCvController extends Controller
 {
     public function __invoke(string $name)
     {
-        $cv = Media::where('name', $name)->firstOrFail()->load('imageable.apply.jobOffer.company');
+        $cv = Media::where('name', $name)->firstOrFail();
         $path = storage_path('app/'.$cv->collection.'/'.$cv->name);
 
         if (!Gate::allows('show-cv', $cv)) {
