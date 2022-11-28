@@ -3,8 +3,8 @@
 namespace App\Domain\JobOffer\Actions;
 
 use App\Domain\JobOffer\Enums\JobOfferStatus;
+use App\Domain\JobOffer\Exceptions\CannotPublishJobOfferException;
 use App\Domain\JobOffer\Models\JobOffer;
-use App\Exceptions\CannotPublishJobOfferException;
 
 class PublishJobOfferAction
 {

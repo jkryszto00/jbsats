@@ -12,6 +12,7 @@ class DeleteJobOfferController extends Controller
     public function __invoke(JobOffer $jobOffer): RedirectResponse
     {
         $this->authorize('delete', $jobOffer);
+        
         DeleteJobOfferAction::execute($jobOffer);
         return redirect()->route('panel.posting.index');
     }

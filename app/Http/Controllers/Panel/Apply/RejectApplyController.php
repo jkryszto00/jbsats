@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel\Apply;
 
 use App\Domain\Apply\Actions\RejectApplyAction;
+use App\Domain\Apply\Exceptions\CannotChangeApplyStatusException;
 use App\Domain\Apply\Models\Apply;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -13,7 +14,11 @@ class RejectApplyController extends Controller
     {
         $this->authorize('update', $apply);
 
-        RejectApplyAction::execute($apply);
-        return redirect()->route('panel.apply.show', $apply->jobOffer);
+        try {
+            RejectApplyAction::execute($apply);
+            return redirect()->back();
+        } catch (CannotChangeApplyStatusException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

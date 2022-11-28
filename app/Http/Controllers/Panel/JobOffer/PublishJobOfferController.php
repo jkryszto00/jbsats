@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel\JobOffer;
 
 use App\Domain\JobOffer\Actions\PublishJobOfferAction;
+use App\Domain\JobOffer\Exceptions\CannotPublishJobOfferException;
 use App\Domain\JobOffer\Models\JobOffer;
 use App\Http\Controllers\Controller;
 
@@ -12,7 +13,11 @@ class PublishJobOfferController extends Controller
     {
         $this->authorize('update', $jobOffer);
 
-        PublishJobOfferAction::execute($jobOffer);
-        return redirect()->route('panel.posting.index');
+        try {
+            PublishJobOfferAction::execute($jobOffer);
+            return redirect()->route('panel.posting.index');
+        } catch (CannotPublishJobOfferException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }
