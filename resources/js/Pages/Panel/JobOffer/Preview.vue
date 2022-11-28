@@ -6,15 +6,15 @@ import PanelLayout from "@/Layouts/PanelLayout.vue";
 import Card from "@/Components/Card.vue";
 import Button from "@/Components/Button.vue";
 
-const props = defineProps(['model'])
+const prop = defineProps(['model'])
 
 const formatter = new Intl.NumberFormat('en-US')
 
 const salaries = computed(() => {
-    return props.model.job_offer.salaries.map((salary) => {
+    return prop.model.job_offer.salaries.map((salary) => {
         return {
             type: salary.type,
-            rate: `${formatter.format(salary.from)} - ${formatter.format(salary.to)} ${upperCase(props.model.job_offer.contract.currency)}`,
+            rate: `${formatter.format(salary.from)} - ${formatter.format(salary.to)} ${upperCase(prop.model.job_offer.contract.currency)}`,
             per: salary.per
         }
     })

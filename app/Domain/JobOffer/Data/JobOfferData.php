@@ -26,7 +26,8 @@ class JobOfferData extends Data
         #[DataCollectionOf(SalaryData::class)]
         public readonly DataCollection|Optional $salaries,
         public readonly JobOfferStatus|Optional $status,
-        public readonly Carbon|Optional|null $expired_at
+        public readonly Carbon|Optional|null $expired_at,
+        public readonly int|Optional $applies_count
     ){}
 
     public static function fromRequest(Request $request): self

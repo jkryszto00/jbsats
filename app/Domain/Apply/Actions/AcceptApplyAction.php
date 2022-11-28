@@ -3,8 +3,8 @@
 namespace App\Domain\Apply\Actions;
 
 use App\Domain\Apply\Enums\ApplyStatus;
-use App\Domain\Apply\Exceptions\CannotChangeApplyStatusException;
 use App\Domain\Apply\Models\Apply;
+use App\Exceptions\CannotChangeApplyStatusException;
 
 class AcceptApplyAction
 {

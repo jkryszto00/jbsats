@@ -5,6 +5,7 @@ namespace App\Domain\Apply\Data;
 use App\Domain\Apply\Enums\ApplyStatus;
 use App\Domain\Apply\Models\Apply;
 use App\Domain\JobOffer\Data\JobOfferData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 use Spatie\LaravelData\Data;
@@ -16,13 +17,14 @@ class ApplyData extends Data
         public readonly int|Optional $id,
         public readonly JobOfferData|Optional $job_offer,
         public readonly CandidateData|Optional $candidate,
-        public readonly ApplyStatus|Optional $status
+        public readonly ApplyStatus|Optional $status,
     ){}
 
     public static function fromModel(Apply $apply): self
     {
         return self::from([
             ...$apply->toArray(),
+            'job_offer' => JobOfferData::from($apply->jobOffer),
             'candidate' => CandidateData::fromModel($apply->candidate)
         ]);
     }

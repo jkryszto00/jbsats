@@ -5,7 +5,7 @@ import PanelLayout from "@/Layouts/PanelLayout.vue";
 import Card from "@/Components/Card.vue"
 import Button from "@/Components/Button.vue"
 
-defineProps(['counts', 'applications'])
+defineProps(['model'])
 </script>
 <template>
     <PanelLayout>
@@ -20,15 +20,15 @@ defineProps(['counts', 'applications'])
                 <div class="flex items-center divide-x divide-neutral-200">
                     <div class="flex-1 text-center py-4">
                         <Link :href="route('panel.posting.index', { status: 'published' })" class="text-lg font-semibold text-neutral-700 hover:underline">Published</Link>
-                        <div class="text-2xl font-bold text-green-600">{{ counts.published }}</div>
+                        <div class="text-2xl font-bold text-green-600">{{ model.counts.published }}</div>
                     </div>
                     <div class="flex-1 text-center py-4">
                         <Link :href="route('panel.posting.index', { status: 'expired' })" class="text-lg font-semibold text-neutral-700 hover:underline">Expired</Link>
-                        <div class="text-2xl font-bold text-red-600">{{ counts.expired }}</div>
+                        <div class="text-2xl font-bold text-red-600">{{ model.counts.expired }}</div>
                     </div>
                     <div class="flex-1 text-center py-4">
                         <Link :href="route('panel.posting.index', { status: 'drafts' })" class="text-lg font-semibold text-neutral-700 hover:underline">Drafts</Link>
-                        <div class="text-2xl font-bold text-indigo-600">{{ counts.draft }}</div>
+                        <div class="text-2xl font-bold text-indigo-600">{{ model.counts.drafts }}</div>
                     </div>
                 </div>
             </Card>
@@ -40,7 +40,7 @@ defineProps(['counts', 'applications'])
                     </div>
                 </template>
                 <div class="divide-y divide-neutral-200">
-                    <template v-for="apply in applications">
+                    <template v-for="apply in model.applications">
                         <div class="py-2 first:pt-0 last:pb-0 flex justify-between items-center">
                             <div>
                                 <div class="font-semibold text-neutral-700">{{ apply.candidate.name }}</div>

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Panel\Apply;
 
 use App\Domain\Apply\Actions\AcceptApplyAction;
-use App\Domain\Apply\Exceptions\CannotChangeApplyStatusException;
 use App\Domain\Apply\Models\Apply;
+use App\Exceptions\CannotChangeApplyStatusException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Panel\JobOffer;
 
 use App\Domain\JobOffer\Actions\PublishJobOfferAction;
-use App\Domain\JobOffer\Exceptions\CannotPublishJobOfferException;
 use App\Domain\JobOffer\Models\JobOffer;
+use App\Exceptions\CannotPublishJobOfferException;
 use App\Http\Controllers\Controller;
 
 class PublishJobOfferController extends Controller

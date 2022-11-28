@@ -8,15 +8,15 @@ import SiteLayout from "@/Layouts/SiteLayout.vue";
 import ApplyDialog from "@/Pages/Site/JobOffer/Partials/ApplyDialog.vue";
 import Card from "@/Components/Card.vue";
 
-const props = defineProps(['model'])
+const prop = defineProps(['model'])
 
 const formatter = new Intl.NumberFormat('en-US')
 
 const salaries = computed(() => {
-    return props.model.job_offer.salaries.map((salary) => {
+    return prop.model.job_offer.salaries.map((salary) => {
         return {
             type: salary.type,
-            rate: ((salary.exact && !isNull(salary.exact)) ? formatter.format(salary.exact) : `${formatter.format(salary.from)} - ${formatter.format(salary.to)}`) + ` ${upperCase(props.model.job_offer.contract.currency)}`,
+            rate: ((salary.exact && !isNull(salary.exact)) ? formatter.format(salary.exact) : `${formatter.format(salary.from)} - ${formatter.format(salary.to)}`) + ` ${upperCase(prop.model.job_offer.contract.currency)}`,
             per: salary.per
         }
     })

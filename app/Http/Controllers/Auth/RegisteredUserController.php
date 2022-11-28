@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
             'is_employer' => 'required|boolean'
         ]);
 
-        $user = $createUserAction(UserData::from($validated));
+        $user = $createUserAction->execute(UserData::from($validated));
 
         event(new Registered($user));
 

@@ -7,7 +7,7 @@ import Input from "@/Components/Form/Input.vue";
 import Textarea from "@/Components/Form/Textarea.vue";
 import InputError from "@/Components/Form/InputError.vue";
 
-const props = defineProps(['job_offer'])
+const prop = defineProps(['job_offer'])
 
 const isOpen = ref(false)
 
@@ -22,7 +22,7 @@ const form = useForm({
     cv: ''
 })
 
-const submit = () => form.post(route('site.jobs.apply', { jobOffer: props.job_offer }))
+const submit = () => form.post(route('site.jobs.apply', { jobOffer: prop.job_offer }))
 </script>
 <template>
     <div class="py-2">

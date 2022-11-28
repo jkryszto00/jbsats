@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Mail;
 
 class CreateUserAction
 {
-    public function __invoke(UserData $userData): User
+    public function execute(UserData $userData): User
     {
         $user = User::create([
             'name' => $userData->name,

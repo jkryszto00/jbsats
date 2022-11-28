@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\JobOffer\Exceptions;
+namespace App\Exceptions;
 
 use Exception;
 
