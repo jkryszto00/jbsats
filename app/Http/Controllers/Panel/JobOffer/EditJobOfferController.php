@@ -10,6 +10,8 @@ class EditJobOfferController extends Controller
 {
     public function __invoke(JobOffer $jobOffer)
     {
+        $this->authorize('update', $jobOffer);
+
         return inertia('Panel/JobOffer/Edit', [
             'model' => new UpsertJobOfferViewModel($jobOffer)
         ]);

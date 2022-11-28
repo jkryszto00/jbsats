@@ -11,6 +11,8 @@ class PreviewJobOfferController extends Controller
 {
     public function __invoke(JobOffer $jobOffer): InertiaResponse
     {
+        $this->authorize('view', $jobOffer);
+
         return inertia('Panel/JobOffer/Preview', [
             'model' => new ShowJobOfferViewModel($jobOffer)
         ]);

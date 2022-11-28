@@ -43,7 +43,6 @@ class UpdateJobOfferRequest extends FormRequest
             'salary.*.type' => ['required', new Enum(ContractType::class)],
             'salary.*.from' => 'nullable|integer',
             'salary.*.to' => 'nullable|integer',
-            'salary.*.exact' => 'nullable|integer',
             'salary.*.per' => ['required', new Enum(ContractPer::class)]
         ];
     }

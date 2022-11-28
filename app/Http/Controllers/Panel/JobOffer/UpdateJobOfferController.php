@@ -17,6 +17,8 @@ class UpdateJobOfferController extends Controller
 {
     public function __invoke(JobOffer $jobOffer, UpdateJobOfferRequest $request)
     {
+        $this->authorize('update', $jobOffer);
+
         $validated = $request->validated();
 
         $jobOfferData = JobOfferData::from([

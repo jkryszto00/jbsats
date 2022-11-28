@@ -24,9 +24,9 @@ Route::get('companies/{company}', \App\Http\Controllers\Site\Company\ShowCompany
 
 Route::post('jobs/{jobOffer}/apply', \App\Http\Controllers\Site\JobOffer\ApplyJobOfferController::class)->name('site.jobs.apply');
 
-Route::get('/files/{name}', \App\Http\Controllers\Panel\ShowCvController::class)->name('files.show');
+Route::get('/files/{name}', \App\Http\Controllers\Panel\ShowCvController::class)->name('files.show')->middleware(['auth', 'employer']);
 
-Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
+Route::group(['prefix' => 'panel', 'middleware' => ['auth', 'employer']], function () {
     Route::get('', \App\Http\Controllers\Panel\DashboardController::class)->name('panel.dashboard');
 
     Route::group(['prefix' => 'posting'], function () {
@@ -60,6 +60,5 @@ Route::group(['prefix' => 'panel', 'middleware' => 'employer'], function () {
         Route::patch('edit', \App\Http\Controllers\Panel\Company\UpdateCompanyController::class)->name('panel.company.update');
     });
 });
-
 
 require __DIR__.'/auth.php';

@@ -9,12 +9,16 @@ use App\Domain\JobOffer\Data\JobOfferData;
 use App\Domain\JobOffer\Data\LevelData;
 use App\Domain\JobOffer\Data\SalaryData;
 use App\Domain\JobOffer\Enums\JobOfferLevel;
+use App\Domain\JobOffer\Models\JobOffer;
 use App\Domain\JobOffer\Requests\CreateJobOfferRequest;
+use App\Http\Controllers\Controller;
 
-class StoreJobOfferController
+class StoreJobOfferController extends Controller
 {
     public function __invoke(CreateJobOfferRequest $request, CreateJobOfferAction $createJobOfferAction)
     {
+        $this->authorize('create', JobOffer::class);
+
         $validated = $request->validated();
         $company = auth()->user()->company;
 
