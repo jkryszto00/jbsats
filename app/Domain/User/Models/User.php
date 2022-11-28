@@ -5,6 +5,7 @@ namespace App\Domain\User\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Domain\Company\Models\Company;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -50,7 +51,12 @@ class User extends Authenticatable
         return $this->is_employer;
     }
 
-    public function company()
+    public function isCompanyOwner(Company $company): bool
+    {
+        return $this->id === $company->owner_id;
+    }
+
+    public function company(): HasOne
     {
         return $this->hasOne(Company::class, 'owner_id');
     }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class UpdateJobOfferAction
 {
-    public static function execute(JobOffer $jobOffer, JobOfferData $jobOfferData)
+    public static function execute(JobOffer $jobOffer, JobOfferData $jobOfferData): JobOffer
     {
         return DB::transaction(function () use ($jobOffer, $jobOfferData) {
             $jobOffer->update($jobOfferData->toArray());
