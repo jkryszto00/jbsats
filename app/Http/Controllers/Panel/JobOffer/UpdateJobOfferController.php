@@ -19,20 +19,7 @@ class UpdateJobOfferController extends Controller
     {
         $this->authorize('update', $jobOffer);
 
-        $validated = $request->validated();
-
-        $jobOfferData = JobOfferData::from([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'categories' => CategoryData::collection(array_map(fn ($category) => CategoryData::from($category), $validated['category'])),
-            'level' => LevelData::from([
-                'name' => JobOfferLevel::tryFrom($validated['level'])->text(),
-                'value' => JobOfferLevel::tryFrom($validated['level'])->value
-            ]),
-            'contract' => ContractData::from($validated['contract']),
-            'salaries' => SalaryData::collection(array_map(fn ($salary) => SalaryData::from($salary), $validated['salary']))
-        ]);
-
+        $jobOfferData = JobOfferData::fromRequest($request);
         UpdateJobOfferAction::execute($jobOffer, $jobOfferData);
 
         return redirect()->route('panel.posting.index');
