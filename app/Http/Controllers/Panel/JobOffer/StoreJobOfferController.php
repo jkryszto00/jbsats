@@ -19,20 +19,8 @@ class StoreJobOfferController extends Controller
     {
         $this->authorize('create', JobOffer::class);
 
-        $validated = $request->validated();
         $company = auth()->user()->company;
-
-        $jobOffer = JobOfferData::from([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'categories' => CategoryData::collection(array_map(fn ($category) => CategoryData::from($category), $validated['category'])),
-            'level' => LevelData::from([
-                'name' => JobOfferLevel::tryFrom($validated['level'])->text(),
-                'value' => JobOfferLevel::tryFrom($validated['level'])->value
-            ]),
-            'contract' => ContractData::from($validated['contract']),
-            'salaries' => SalaryData::collection(array_map(fn ($salary) => SalaryData::from($salary), $validated['salary']))
-        ]);
+        $jobOffer = JobOfferData::fromRequest($request);
 
         CreateJobOfferAction::execute($company, $jobOffer);
 
